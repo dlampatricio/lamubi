@@ -1,7 +1,7 @@
 "use client"
 
-import { GameCard } from '@/components/game/GameCard';
-import { Intermission } from '@/components/game/Intermission';
+import { GameCard } from '@/components/GameCard';
+import { Intermission } from '@/components/Intermission';
 import { useGameStore, useCurrentPlayer } from '@/store/gameStore';
 
 export default function PlayPage() {
