@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useGameStore } from '@/store/gameStore';
-import { Plus, Play, X, ChevronRight, ChevronLeft, Menu } from 'lucide-react';
+import { Plus, Play, X, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function SetupPage() {
   const router = useRouter();

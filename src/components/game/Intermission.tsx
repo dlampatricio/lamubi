@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useGameStore, useCurrentTeam } from '@/store/gameStore';
 import { ChevronRight } from 'lucide-react';
 
