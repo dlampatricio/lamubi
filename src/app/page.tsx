@@ -1,7 +1,15 @@
-'use client';
+"use client"
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  redirect('/welcome');
+  const router = useRouter()
+  return (
+    <>
+    <div>
+      <h1>La Mubi</h1>
+    </div>
+    <button onClick={() => router.push('/lobby')}>Lobby</button>
+    </>
+  );
 }
