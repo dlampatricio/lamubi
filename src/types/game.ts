@@ -1,16 +1,22 @@
-export interface GameStore {
+export interface GameStore {  
+  game_state: 'idle' | 'playing' | 'acting' | 'finished';
   teams: Team[];
-  current_team: Team;
-  gameState: 'idle' | 'playing' | 'finished';
-  startGame: () => void;
-  nextTeam: () => void;
-  correctGuess: () => void;
-  endGame: () => void;
-  reset: () => void;
+  current_team_index: number;
+  timer: number;
+  initial_timer: number;
   updateTeamName: (index: number, name: string) => void;
   addPlayer: (teamIndex: number, playerName: string) => void;
   removePlayer: (teamIndex: number, playerIndex: number) => void;
-  updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void;
+  updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void
+  setInitialTimer: (seconds: number) => void;
+  decrementTimer: () => void;
+  startGame: () => void;
+  startActing: () => void;
+  endRound: () => void;
+  endGame: () => void;
+  resetScores: () => void;
+  nextTeam: () => void;
+  correctGuess: () => void;
 }
 
 export interface Team {

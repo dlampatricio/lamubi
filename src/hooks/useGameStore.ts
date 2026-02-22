@@ -1,18 +1,25 @@
-import {create} from "zustand"
-import { GameStore } from "@/types/game";
+import { create } from "zustand";
+import { GameStore, Team } from "@/types/game";
 
-const teams = [
-    { name: 'Team A', score: 0, players: [], current_player_index: 0 },
-    { name: 'Team B', score: 0, players: [], current_player_index: 0 }
-]
+// Estado inicial fuera para poder resetear fácilmente
+const initialTeams: Team[] = [
+  { name: 'Team A', score: 0, players: [], current_player_index: 0 },
+  { name: 'Team B', score: 0, players: [], current_player_index: 0 }
+];
 
-export const useGameStore = create<GameStore>((set) => ({
-  // Game State
-  gameState: 'idle',
-  // Turns Logic
-  teams: teams,
-  current_team: teams[0],
-  
+export const useGameStore = create<GameStore>((set, get) => ({
+  // --- STATE ---
+  game_state: 'idle',
+  teams: initialTeams,
+  current_team_index: 0, // Referencia única a la fuente de verdad
+  timer: 60,
+  initial_timer: 60,
+
+  // --- GETTERS (Derivados) ---
+  // Podemos acceder al equipo actual de forma segura
+  // Uso: const currentTeam = useGameStore(state => state.teams[state.currentTeamIndex])
+
+  // --- ACTIONS ---
   updateTeamName: (index, newName) => set((state) => ({
     teams: state.teams.map((t, i) => i === index ? { ...t, name: newName } : t)
   })),
@@ -34,77 +41,79 @@ export const useGameStore = create<GameStore>((set) => ({
   })),
 
   updatePlayerName: (teamIndex, playerIndex, newName) => set((state) => ({
-  teams: state.teams.map((team, tIdx) => 
-    tIdx === teamIndex 
-      ? { 
-          ...team, 
-          players: team.players.map((player, pIdx) => 
-            pIdx === playerIndex ? { ...player, name: newName } : player
-          ) 
-        } 
-      : team
-  )
-})),
+    teams: state.teams.map((team, tIdx) => 
+      tIdx === teamIndex 
+        ? { 
+            ...team, 
+            players: team.players.map((p, pIdx) => pIdx === playerIndex ? { name: newName } : p) 
+          } 
+        : team
+    )
+  })),
+
+  setInitialTimer: (seconds) => set({ 
+    initial_timer: seconds, 
+    timer: seconds 
+  }),
+
+  decrementTimer: () => set((state) => ({ 
+    timer: Math.max(0, state.timer - 1) 
+  })),
 
   startGame: () => set((state) => ({ 
-    gameState: 'playing',
-    teams: state.teams.map(t => ({ ...t, score: 0 })),
-    current_team: { ...state.teams[0], score: 0 }
+    game_state: 'playing', // O 'handoff' si tienes esa pantalla
+    teams: state.teams.map(t => ({ ...t, score: 0, current_player_index: 0 })),
+    current_team_index: 0,
+    timer: state.initial_timer
+  })),
+
+  startActing: () => set({ game_state: 'acting' }),
+
+  endRound: () => set({ game_state: 'finished' }),
+
+  // Reset total (volver a la configuración inicial)
+  endGame: () => set({
+    game_state: 'idle',
+    teams: initialTeams.map(t => ({ ...t })), // Copia nueva
+    current_team_index: 0,
+    timer: 60
+  }),
+
+  // Reset suave (para jugar otra partida con los mismos equipos/jugadores)
+  resetScores: () => set((state) => ({
+    game_state: 'idle',
+    teams: state.teams.map(t => ({ ...t, score: 0, current_player_index: 0 })),
+    current_team_index: 0
   })),
 
   nextTeam: () => set((state) => {
-    const currentIndex = state.teams.findIndex(t => t.name === state.current_team.name);
+    const nextIndex = (state.current_team_index + 1) % state.teams.length;
     
+    // Avanzamos el puntero del jugador del equipo que acaba de terminar
     const updatedTeams = state.teams.map((team, idx) => {
-      if (idx === currentIndex) {
-        return {
-          ...team,
-          current_player_index: (team.current_player_index + 1) % team.players.length
-        };
+      if (idx === state.current_team_index) {
+        // Solo avanzamos si hay jugadores, para evitar división por cero o errores
+        const nextPlayerIdx = team.players.length > 0 
+          ? (team.current_player_index + 1) % team.players.length 
+          : 0;
+        return { ...team, current_player_index: nextPlayerIdx };
       }
       return team;
     });
 
-    const nextTeamIndex = (currentIndex + 1) % updatedTeams.length;
-
     return { 
+      game_state: 'playing',
       teams: updatedTeams,
-      current_team: updatedTeams[nextTeamIndex] 
+      current_team_index: nextIndex,
+      timer: state.initial_timer
     };
   }),
 
-
-  correctGuess: () => set((state) => {
-    const updatedTeams = state.teams.map((team) => 
-      team.name === state.current_team.name 
+  correctGuess: () => set((state) => ({
+    teams: state.teams.map((team, idx) => 
+      idx === state.current_team_index 
         ? { ...team, score: team.score + 1 } 
         : team
-    );
-
-    const updatedCurrent = updatedTeams.find(t => t.name === state.current_team.name);
-
-    return { 
-      teams: updatedTeams,
-      current_team: updatedCurrent || state.current_team 
-    };
-  }),
-
-
-  endGame: () => set({ gameState: 'finished' }),
-
-  reset: () => set((state) => {
-  const resetTeams = state.teams.map((team) => ({
-    ...team,
-    score: 0,
-    currentPlayerIndex: 0
-  }));
-
-  return {
-    gameState: 'idle',
-    teams: resetTeams,
-    current_team: resetTeams[0]
-  };
-})
+    )
+  })),
 }));
-
-export default useGameStore;
