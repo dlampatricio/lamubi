@@ -1,7 +1,6 @@
 import useGameStore from "../hooks/useGameStore";
 
 const HandleTeamsCard = () => {
-  // Traemos la nueva acción
   const { teams, updateTeamName, addPlayer, removePlayer, updatePlayerName } = useGameStore();
 
   return (
