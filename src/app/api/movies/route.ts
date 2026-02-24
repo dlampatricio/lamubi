@@ -9,7 +9,7 @@ export async function GET() {
     const randomPage = Math.floor(Math.random() * 15) + 1;
     
     const res = await fetch(
-      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=${randomPage}&vote_count.gte=1000`,
+      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=${randomPage}&vote_count.gte=10000`,
       { next: { revalidate: 0 } }
     );
 
@@ -25,6 +25,7 @@ export async function GET() {
         title: m.title.toUpperCase(),
         poster_path: m.poster_path,
         year: m.release_date ? new Date(m.release_date).getFullYear() : undefined,
+        rating: Math.round(m.vote_average * 10) / 10,
       }))
       .sort(() => Math.random() - 0.5);
 

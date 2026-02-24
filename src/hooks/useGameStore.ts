@@ -1,10 +1,9 @@
 import { create } from "zustand";
 import { GameStore, Team, Movie } from "@/types/game";
 
-// Estado inicial fuera para poder resetear fácilmente
 const initialTeams: Team[] = [
-  { name: 'Team A', score: 0, players: [], current_player_index: 0 },
-  { name: 'Team B', score: 0, players: [], current_player_index: 0 }
+  { name: 'Mad Max', score: 0, players: [], current_player_index: 0 },
+  { name: 'La La Land', score: 0, players: [], current_player_index: 0 }
 ];
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -69,25 +68,22 @@ export const useGameStore = create<GameStore>((set, get) => ({
     };
   }),
 
-  skipMovie: () => set((state) => {
-    const [next, ...rest] = state.movies;
-    return {
-      current_movie: next || null,
-      movies: rest
-    };
-  }),
+  skipMovie: () => get().getNextMovie(),
 
-  startGame: (initial_movies: Movie[]) => set((state) => ({ 
-    game_state: 'playing',
-    teams: state.teams.map(t => ({ ...t, score: 0, current_player_index: 0 })),
-    current_team_index: 0,
-    timer: state.initial_timer,
-    movies: initial_movies,
-    current_movie: null
-  })),
+  startGame: (initial_movies: Movie[]) => {
+    const [first, ...rest] = initial_movies;
+
+    set((state) => ({ 
+      game_state: 'playing',
+      teams: state.teams.map(t => ({ ...t, score: 0, current_player_index: 0 })),
+      current_team_index: 0,
+      timer: state.initial_timer,
+      movies: rest,
+      current_movie: first
+    }));
+  },
 
   startActing: () => {
-    get().getNextMovie(); 
     set({ game_state: 'acting' });
   },
 
@@ -123,23 +119,29 @@ export const useGameStore = create<GameStore>((set, get) => ({
       return team;
     });
 
+    const [next, ...rest] = state.movies;
+
     return { 
       game_state: 'playing',
       teams: updatedTeams,
       current_team_index: nextIndex,
       timer: state.initial_timer,
-      current_movie: null
+      current_movie: next || null,
+      movies: rest
     };
   }),
 
-  correctGuess: () => {
-    get().getNextMovie();
-    set((state) => ({
+  correctGuess: () => set((state) => {
+    const [next, ...rest] = state.movies;
+    
+    return {
+      current_movie: next || null,
+      movies: rest,
       teams: state.teams.map((team, idx) => 
         idx === state.current_team_index 
           ? { ...team, score: team.score + 1 } 
           : team 
       )
-    }));
-  },
+    };
+  }),
 }));

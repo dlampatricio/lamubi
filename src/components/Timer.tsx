@@ -25,7 +25,7 @@ const Timer = () => {
   }, [game_state, timer, decrementTimer, endRound, router]);
 
   return (
-    <div className="text-6xl font-black my-4">
+    <div className="text-4xl font-bold my-4">
       <h2 className={timer < 10 ? 'text-red-600' : 'text-gray-800'}>
         {timer}s
       </h2>
