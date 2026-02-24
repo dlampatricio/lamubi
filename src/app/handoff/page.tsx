@@ -26,18 +26,18 @@ export default function HandoffPage() {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen p-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">¡Cambio de Turno!</h1>
+            <h1 className="text-4xl font-bold mb-4">Turn Change!</h1>
             
             <div className="border p-6 rounded-lg mb-6">
-                <p className="text-xl text-gray-600">Le toca al equipo:</p>
+                <p className="text-xl text-gray-600">Team's turn:</p>
                 <p className="text-3xl font-black uppercase">
                     {current_team?.name}
                 </p>
                 
                 <div className="mt-4 pt-4 border-t">
-                    <p className="text-xl text-gray-600">Es el turno de:</p>
+                    <p className="text-xl text-gray-600">It's turn:</p>
                     <p className="text-2xl font-bold italic">
-                        {current_player?.name || "Jugador sin nombre"}
+                        {current_player?.name || "Unnamed Player"}
                     </p>
                 </div>
             </div>

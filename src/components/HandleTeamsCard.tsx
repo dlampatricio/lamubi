@@ -8,7 +8,7 @@ const HandleTeamsCard = () => {
     <div className="space-y-4">
       {teams.map((team, teamIdx) => (
         <div key={teamIdx} className="border p-4">
-          <label className="block font-bold">Equipo {teamIdx + 1}:</label>
+          <label className="block font-bold">Team {teamIdx + 1}:</label>
           <input 
             className="border p-1 w-full mb-2"
             value={team.name} 
@@ -22,7 +22,7 @@ const HandleTeamsCard = () => {
                   className="border p-1 flex-1"
                   value={p.name} 
                   onChange={(e) => updatePlayerName(teamIdx, pIdx, e.target.value)} 
-                  placeholder="Nombre Jugador"
+                  placeholder="Player Name"
                 />
                 <button 
                   className="bg-red-500 text-white px-2" 

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GameStore, Team } from "@/types/game";
+import { GameStore, Team, Movie } from "@/types/game";
 
 // Estado inicial fuera para poder resetear fácilmente
 const initialTeams: Team[] = [
@@ -11,13 +11,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
   // --- STATE ---
   game_state: 'idle',
   teams: initialTeams,
-  current_team_index: 0, // Referencia única a la fuente de verdad
+  current_team_index: 0,
   timer: 60,
   initial_timer: 60,
 
-  // --- GETTERS (Derivados) ---
-  // Podemos acceder al equipo actual de forma segura
-  // Uso: const currentTeam = useGameStore(state => state.teams[state.currentTeamIndex])
+  movies: [] as Movie[],
+  current_movie: null as Movie | null,
 
   // --- ACTIONS ---
   updateTeamName: (index, newName) => set((state) => ({
@@ -60,14 +59,37 @@ export const useGameStore = create<GameStore>((set, get) => ({
     timer: Math.max(0, state.timer - 1) 
   })),
 
-  startGame: () => set((state) => ({ 
-    game_state: 'playing', // O 'handoff' si tienes esa pantalla
+  setMovies: (movies: Movie[]) => set({ movies }),
+
+  getNextMovie: () => set((state) => {
+    const [next, ...rest] = state.movies;
+    return {
+      current_movie: next || null,
+      movies: rest
+    };
+  }),
+
+  skipMovie: () => set((state) => {
+    const [next, ...rest] = state.movies;
+    return {
+      current_movie: next || null,
+      movies: rest
+    };
+  }),
+
+  startGame: (initial_movies: Movie[]) => set((state) => ({ 
+    game_state: 'playing',
     teams: state.teams.map(t => ({ ...t, score: 0, current_player_index: 0 })),
     current_team_index: 0,
-    timer: state.initial_timer
+    timer: state.initial_timer,
+    movies: initial_movies,
+    current_movie: null
   })),
 
-  startActing: () => set({ game_state: 'acting' }),
+  startActing: () => {
+    get().getNextMovie(); 
+    set({ game_state: 'acting' });
+  },
 
   endRound: () => set({ game_state: 'finished' }),
 
@@ -105,15 +127,19 @@ export const useGameStore = create<GameStore>((set, get) => ({
       game_state: 'playing',
       teams: updatedTeams,
       current_team_index: nextIndex,
-      timer: state.initial_timer
+      timer: state.initial_timer,
+      current_movie: null
     };
   }),
 
-  correctGuess: () => set((state) => ({
-    teams: state.teams.map((team, idx) => 
-      idx === state.current_team_index 
-        ? { ...team, score: team.score + 1 } 
-        : team
-    )
-  })),
+  correctGuess: () => {
+    get().getNextMovie();
+    set((state) => ({
+      teams: state.teams.map((team, idx) => 
+        idx === state.current_team_index 
+          ? { ...team, score: team.score + 1 } 
+          : team 
+      )
+    }));
+  },
 }));

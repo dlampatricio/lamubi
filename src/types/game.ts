@@ -4,13 +4,18 @@ export interface GameStore {
   current_team_index: number;
   timer: number;
   initial_timer: number;
+  movies: Movie[];
+  current_movie: Movie | null;
   updateTeamName: (index: number, name: string) => void;
   addPlayer: (teamIndex: number, playerName: string) => void;
   removePlayer: (teamIndex: number, playerIndex: number) => void;
   updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void
   setInitialTimer: (seconds: number) => void;
   decrementTimer: () => void;
-  startGame: () => void;
+  setMovies: (movies: Movie[]) => void;
+  getNextMovie: () => void;
+  skipMovie: () => void;
+  startGame: (movies: Movie[]) => void;
   startActing: () => void;
   endRound: () => void;
   endGame: () => void;
@@ -28,4 +33,11 @@ export interface Team {
 
 export interface Player {
     name: string;
+}
+
+export interface Movie {
+    id: number;
+    title: string;
+    poster_path?: string;
+    year?: number;
 }
