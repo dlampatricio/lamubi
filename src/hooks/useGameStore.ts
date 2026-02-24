@@ -132,11 +132,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   }),
 
   correctGuess: () => set((state) => {
-    const [next, ...rest] = state.movies;
-    
     return {
-      current_movie: next || null,
-      movies: rest,
       teams: state.teams.map((team, idx) => 
         idx === state.current_team_index 
           ? { ...team, score: team.score + 1 } 

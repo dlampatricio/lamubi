@@ -5,43 +5,44 @@ const HandleTeamsCard = () => {
   const { teams, updateTeamName, addPlayer, removePlayer, updatePlayerName } = useGameStore();
 
   return (
-    <div className="space-y-4">
+    <>
       {teams.map((team, teamIdx) => (
-        <div key={teamIdx} className="border p-4">
+        <div key={teamIdx} className="space-y-6">
           <input 
-            className="border p-2 w-full mb-2"
+            className="bg-transparent border-b-2 border-black text-xl font-black uppercase tracking-tighter focus:outline-none w-full pb-1"
             value={team.name} 
             onChange={(e) => updateTeamName(teamIdx, e.target.value)} 
+            placeholder="TEAM NAME"
           />
 
-          <ul className="mb-2">
+          <div className="space-y-3">
             {team.players.map((p, pIdx) => (
-              <li key={pIdx} className="flex gap-2 mb-1">
+              <div key={pIdx} className="flex items-center gap-2 group">
                 <input 
-                  className="border p-2 flex-1"
+                  className="flex-1 bg-gray-50 p-2.5 rounded-xl text-sm font-bold text-gray-700 outline-none focus:bg-gray-100 transition-all"
                   value={p.name} 
                   onChange={(e) => updatePlayerName(teamIdx, pIdx, e.target.value)} 
-                  placeholder="Player Name"
+                  placeholder="Player"
                 />
                 <button 
-                  className="bg-red-500 text-white px-2 py-1" 
+                  className="text-gray-300 hover:text-black transition-colors px-1 text-xs" 
                   onClick={() => removePlayer(teamIdx, pIdx)}
                 >
-                  X
+                  ✕
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
 
           <button 
-            className="text-blue-600 text-sm"
+            className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors pl-1"
             onClick={() => addPlayer(teamIdx, "")}
           >
             + Add Player
           </button>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

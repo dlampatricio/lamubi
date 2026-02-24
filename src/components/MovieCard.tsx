@@ -14,7 +14,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
   }
 
   return (
-    <div className="w-full max-w-xs mx-auto bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+    <div className="w-full max-w-xs mx-auto bg-white rounded-2xl overflow-hidden border border-gray-200">
       
       {/* Poster Area */}
       <div className="relative aspect-2/3 bg-gray-100">
