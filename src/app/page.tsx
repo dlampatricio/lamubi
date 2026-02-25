@@ -1,15 +1,11 @@
-"use client"
-
-import { useRouter } from 'next/navigation';
+import NavButton from '@/components/NavButton';
 
 export default function Home() {
-  const router = useRouter();
   
   return (
     <main className="min-h-screen bg-white flex flex-col items-center justify-center p-6 overflow-hidden">
       
       <div className="w-full max-w-xs">
-        {/* Sidebar Accent Header */}
         <div className="border-l-4 border-black pl-6 py-2 mb-16">
           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-1">
             Welcome to
@@ -22,15 +18,11 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Action Button */}
         <div className="flex flex-col gap-4">
-          <button 
-            onClick={() => router.push('/lobby')}
-            className="w-full bg-black text-white font-black py-5 px-8 rounded-2xl text-xl uppercase tracking-tight active:scale-95 transition-all"
-          >
-            Enter Lobby
-          </button>
-          
+          <NavButton 
+            href="/lobby"
+            label="Enter Lobby"
+          />
           <p className="text-[9px] text-gray-300 uppercase font-bold tracking-widest text-center mt-2">
             Local Multiplayer • No Account Needed
           </p>

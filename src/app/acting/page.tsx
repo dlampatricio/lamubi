@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useGameStore } from "../../hooks/useGameStore";
 import Timer from "../../components/Timer";
+import NavButton from "@/components/NavButton";
 
 export default function ActingPage() {
     const router = useRouter();
@@ -49,19 +50,18 @@ export default function ActingPage() {
 
             {/* Footer: Botones */}
             <div className="w-full max-w-xs mb-6 space-y-6">
-                <button 
-                    className="w-full bg-black text-white font-black py-6 rounded-3xl text-2xl uppercase tracking-tight active:scale-95 transition-all"
-                    onClick={handleCorrect}
-                >
-                    Guessed!
-                </button>
-                
-                <button 
-                    className="w-full text-gray-300 font-bold text-[11px] uppercase tracking-[0.3em] hover:text-black transition-colors"
-                    onClick={handleSurrender}
-                >
-                    Surrender
-                </button>
+                <NavButton
+                    href="/result"
+                    label="Guessed!"
+                    action={handleCorrect}
+                    className="py-6 rounded-3xl text-2xl"
+                />
+                <NavButton
+                    href="/result"
+                    label="Surrender"
+                    variant="secondary"
+                    action={handleSurrender}
+                />
             </div>
 
         </div>

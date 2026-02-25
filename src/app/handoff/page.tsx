@@ -1,20 +1,14 @@
 "use client"
 
 import MovieCard from "@/components/MovieCard";
+import NavButton from "@/components/NavButton";
 import { useGameStore } from "@/hooks/useGameStore";
-import { useRouter } from "next/navigation";
 
 export default function HandoffPage() {
-    const router = useRouter();
     const { teams, current_team_index, current_movie, startActing, skipMovie } = useGameStore();
     
     const current_team = teams[current_team_index];
     const current_player = current_team?.players[current_team.current_player_index];
-
-    const handleStartActing = () => {
-        startActing();
-        router.push('/acting');
-    };
 
     return (
         <div className="min-h-screen bg-white flex items-center justify-center p-6 overflow-y-auto">
@@ -36,12 +30,12 @@ export default function HandoffPage() {
 
                     {/* Las acciones se ocultan en móvil y se muestran en desktop aquí */}
                     <div className="hidden md:flex flex-col gap-3">
-                        <button 
-                            className="bg-black text-white font-black py-5 px-8 rounded-2xl text-lg uppercase tracking-tight active:scale-95 transition-all" 
-                            onClick={handleStartActing}
-                        >
-                            I'm Ready
-                        </button>
+                        <NavButton 
+                            href="/acting"
+                            label="I'm Ready"
+                            action={startActing}
+                            variant="primary"
+                        />
                         <button 
                             className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] hover:text-black transition-colors text-left pl-2" 
                             onClick={() => skipMovie()}
@@ -58,12 +52,12 @@ export default function HandoffPage() {
 
                 {/* 3. Mobile Actions: Solo se muestran en móvil al final del flujo */}
                 <div className="w-full max-w-xs flex md:hidden flex-col gap-3 pt-4">
-                    <button 
-                        className="bg-black text-white font-black py-5 px-8 rounded-2xl text-lg uppercase tracking-tight active:scale-95 transition-all" 
-                        onClick={handleStartActing}
-                    >
-                        I'm Ready
-                    </button>
+                    <NavButton 
+                        href="/acting"
+                        label="I'm Ready"
+                        action={startActing}
+                        variant="primary"
+                    />
                     <button 
                         className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] text-center" 
                         onClick={() => skipMovie()}

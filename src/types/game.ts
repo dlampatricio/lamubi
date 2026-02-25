@@ -36,9 +36,13 @@ export interface Player {
 }
 
 export interface Movie {
-    id: number;
-    title: string;
-    poster_path: string;
-    year: number;
-    rating: number;
+  id: number;
+  title: string;
+  poster_path: string;
+  year: string;
+  rating: string;
+  overview?: string;
+  genres?: string[];
+  director?: string;
+  country?: string;
 }
