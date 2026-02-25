@@ -6,6 +6,7 @@ export interface GameStore {
   initial_timer: number;
   movies: Movie[];
   current_movie: Movie | null;
+  category: CategoryConfig;
   updateTeamName: (index: number, name: string) => void;
   addPlayer: (teamIndex: number, playerName: string) => void;
   removePlayer: (teamIndex: number, playerIndex: number) => void;
@@ -15,6 +16,7 @@ export interface GameStore {
   setMovies: (movies: Movie[]) => void;
   getNextMovie: () => void;
   skipMovie: () => void;
+  setCategory: (config: CategoryConfig) => void;
   startGame: (movies: Movie[]) => void;
   startActing: () => void;
   endRound: () => void;
@@ -45,4 +47,11 @@ export interface Movie {
   genres?: string[];
   director?: string;
   country?: string;
+}
+
+export interface CategoryConfig {
+  id: string | null;
+  type: 'company' | 'keyword' | 'top_rated';
+  name: string;
+  theme: string;
 }

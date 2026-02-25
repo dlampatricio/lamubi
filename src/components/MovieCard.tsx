@@ -69,31 +69,18 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
             </p>
           </div>
           
-          <div className="mt-6 pt-6 border-t border-gray-800 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              {/* Columna Izquierda: Director */}
-              <div className="text-left">
+          <div className="mt-6 pt-6 border-t border-gray-800 space-y-3">
+            <div className="flex justify-between items-end">
+              <div>
                 <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest">Director</span>
-                <span className="text-xs font-black text-white uppercase truncate block">
-                  {movie.director || "Unknown"}
-                </span>
+                <span className="text-xs font-black text-white uppercase">{movie.director || "Unknown"}</span>
               </div>
-              
-              {/* Columna Derecha: País */}
               <div className="text-right">
-                <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest">Origin</span>
-                <span className="text-xs font-black text-white uppercase truncate block">
-                  {movie.country}
+                <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest">Genres</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase">
+                  {movie.genres?.join(' • ') || "N/A"}
                 </span>
               </div>
-            </div>
-
-            {/* Géneros centrados o debajo */}
-            <div className="text-center pt-2">
-              <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1">Genres</span>
-              <span className="text-[10px] font-bold text-gray-400 uppercase truncate block">
-                {movie.genres?.join(' • ') || "N/A"}
-              </span>
             </div>
           </div>
         </div>

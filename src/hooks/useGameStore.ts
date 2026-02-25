@@ -17,6 +17,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   movies: [] as Movie[],
   current_movie: null as Movie | null,
 
+  category: { id: null, type: 'top_rated', name: 'All Movies', theme: 'default' },
+
   // --- ACTIONS ---
   updateTeamName: (index, newName) => set((state) => ({
     teams: state.teams.map((t, i) => i === index ? { ...t, name: newName } : t)
@@ -69,6 +71,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   }),
 
   skipMovie: () => get().getNextMovie(),
+
+  setCategory: (config) => set({ category: config }),
 
   startGame: (initial_movies: Movie[]) => {
     const [first, ...rest] = initial_movies;

@@ -20,8 +20,8 @@ export default function Home() {
 
         <div className="flex flex-col gap-4">
           <NavButton 
-            href="/lobby"
-            label="Enter Lobby"
+            href="/category"
+            label="Enter"
           />
           <p className="text-[9px] text-gray-300 uppercase font-bold tracking-widest text-center mt-2">
             Local Multiplayer • No Account Needed
