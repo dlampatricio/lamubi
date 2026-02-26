@@ -51,7 +51,7 @@ export interface Movie {
 
 export interface CategoryConfig {
   id: string | null;
-  type: 'company' | 'keyword' | 'top_rated';
+  type: 'company' | 'keyword' | 'top_rated' | 'custom';
   name: string;
   theme: string;
 }

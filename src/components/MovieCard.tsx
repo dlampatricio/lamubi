@@ -81,6 +81,7 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
                   {movie.genres?.join(' • ') || "N/A"}
                 </span>
               </div>
+              
             </div>
           </div>
         </div>

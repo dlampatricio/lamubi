@@ -6,25 +6,28 @@ const HandleTimeCard = () => {
   const options = [30, 60, 90];
 
   return (
-    <div className="flex flex-col">
-      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-6 text-center md:text-left">
-        Timer
+    <div className="flex flex-col h-full">
+      <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] mb-8">
+        Round Timer
       </p>
-      <div className="flex md:flex-col gap-2 justify-center">
+      <div className="grid grid-cols-3 md:grid-cols-1 gap-3">
         {options.map((time) => (
           <button
             key={time}
             onClick={() => setInitialTimer(time)}
-            className={`flex-1 md:w-full py-2 px-4 rounded-lg font-black text-xs transition-all ${
+            className={`py-6 rounded-2xl font-black text-sm transition-all border ${
               initial_timer === time
-                ? "bg-black text-white scale-105"
-                : "bg-gray-50 text-gray-400 hover:bg-gray-100"
+                ? "bg-black border-black text-white shadow-xl shadow-gray-200 -translate-y-1"
+                : "bg-white border-gray-100 text-gray-300 hover:border-gray-200"
             }`}
           >
-            {time}S
+            {time}<span className="text-[10px] ml-0.5 opacity-50">S</span>
           </button>
         ))}
       </div>
+      <p className="mt-auto pt-8 text-[9px] font-medium text-gray-400 italic leading-relaxed">
+        Recommended: 60s for standard play.
+      </p>
     </div>
   );
 };
