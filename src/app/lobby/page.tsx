@@ -1,12 +1,13 @@
 "use client";
+import { useState } from "react";
 import { useGameStore } from "@/hooks/useGameStore";
 import HandleTimeCard from "@/components/HandleTimeCard";
 import HandleTeamsCard from "@/components/HandleTeamsCard";
-import NavButton from "@/components/NavButton";
 import { useRouter } from "next/navigation";
 
 export default function LobbyPage() {
-  const { startGame, resetScores, teams, category, movies } = useGameStore();
+  const [loading, setLoading] = useState(false);
+  const { startGame, resetScores, teams } = useGameStore();
   const router = useRouter();
   
   const canStart = teams.length > 0 && teams.every(team => 
@@ -14,26 +15,32 @@ export default function LobbyPage() {
     team.players.every(player => player.name.trim().length > 0)
   );
 
-  const handleStartLogic = () => {
-    // Ya no hacemos fetch. Usamos las movies que ya guardamos en CategoryPage
-    resetScores();
-    startGame(movies); // El store ya tiene las películas cargadas
-    router.push("/handoff");
+  const handleStartLogic = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/movies");
+      const data = await res.json();
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error("No movies returned");
+      }
+      resetScores();
+      startGame(data);
+      router.push("/handoff");
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center p-6 md:p-12">
       
       {/* Header Estilo Editorial */}
-      <div className="w-full max-w-4xl pt-12 pb-12 border-b border-gray-100 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-6xl font-black text-black uppercase tracking-tighter leading-none">
-            Game Setup.
-          </h1>
-        </div>
-        <div className="bg-black text-white px-4 py-2 rounded-full inline-flex items-center gap-2">
-          <span className="text-[9px] font-black uppercase tracking-widest">{category.name}</span>
-        </div>
+      <div className="w-full max-w-4xl pt-12 pb-12 border-b border-gray-100 mb-12">
+        <h1 className="text-6xl font-black text-black uppercase tracking-tighter leading-none">
+          Game Setup.
+        </h1>
       </div>
 
       {/* Grid de Configuración */}
@@ -51,14 +58,14 @@ export default function LobbyPage() {
       <div className="mt-auto w-full max-w-4xl flex flex-col items-center border-t border-gray-100 pt-12">
         <button
           onClick={handleStartLogic}
-          disabled={!canStart}
+          disabled={!canStart || loading}
           className={`w-full max-w-xs py-6 rounded-full font-black uppercase text-xs tracking-[0.3em] transition-all ${
-            canStart 
+            canStart && !loading
             ? "bg-black text-white hover:scale-105 active:scale-95 shadow-2xl shadow-gray-200" 
             : "bg-gray-100 text-gray-300 cursor-not-allowed"
           }`}
         >
-          Begin Match
+          {loading ? "Loading..." : "Begin Match"}
         </button>
         
         {!canStart && (
