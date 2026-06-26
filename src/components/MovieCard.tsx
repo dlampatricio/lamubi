@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useGameStore } from "@/hooks/useGameStore";
 import { Movie } from '../types/game';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -28,18 +29,32 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
 
   return (
     <div
-      className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer group"
+      className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer group relative"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div
-        className="relative [transform-style:preserve-3d] transition-transform duration-500 ease-in-out"
-        style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+      {/* Invisible sizing element: gives the container explicit height */}
+      <div className="invisible" aria-hidden="true">
+        <div className="bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
+          <div className="relative aspect-2/3 bg-surface-secondary" />
+          <div className="p-5">
+            <div className="text-xl font-black leading-tight">W</div>
+            <div className="mt-2 text-[11px]">R</div>
+          </div>
+        </div>
+      </div>
+
+      <motion.div
+        className="absolute inset-0"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        initial={false}
       >
 
         {/* FRONT FACE */}
-        <div className="[backface-visibility:hidden]">
-          <div className="w-full bg-surface rounded-2xl overflow-hidden border border-border shadow-sm flex flex-col">
-            <div className="relative aspect-2/3 bg-surface-secondary">
+        <div className="absolute inset-0 [backface-visibility:hidden]">
+          <div className="w-full h-full bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
+            <div className="relative flex-1 bg-surface-secondary">
               <Image
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
@@ -55,7 +70,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 </div>
               )}
             </div>
-            <div className="p-5 text-left bg-surface">
+            <div className="p-5 text-left bg-surface shrink-0">
               <h2 className="text-xl font-black leading-tight text-text-primary uppercase">
                 {movie.title} {!!(movie.year) && <span className="text-text-muted ml-1">({movie.year})</span>}
               </h2>
@@ -68,7 +83,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
 
         {/* BACK FACE */}
         <div
-          className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden"
+          className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden"
         >
           <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">{t('synopsis')}</p>
 
@@ -95,7 +110,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 };
