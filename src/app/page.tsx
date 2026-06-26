@@ -23,6 +23,7 @@ export default function Home() {
           <p className="text-[9px] text-text-muted uppercase font-bold tracking-widest text-center mt-2">
             {t('localMultiplayer')}
           </p>
+          <NavButton href="/how-to-play" label={t('howToPlay')} variant="secondary" className="mt-6" />
         </div>
       </div>
     </main>

@@ -62,6 +62,16 @@ const en: Translations = {
   playerNamePlaceholder: 'PLAYER NAME',
   addPlayer: 'Add Player',
 
+  howToPlay: 'How to Play',
+
+  howToPlayStep1: 'Form teams of 2 or more players.',
+  howToPlayStep2:
+    'Each round, one player is the performer. They see a movie card with title, year, rating, synopsis, director, and genres.',
+  howToPlayStep3: 'The performer acts out the movie for their team WITHOUT speaking or making sounds.',
+  howToPlayStep4:
+    'The team tries to guess the movie title within the time limit. A correct guess earns a point!',
+  howToPlayStep5: 'Players take turns performing. The team with the most points at the end wins.',
+
   toggleTheme: 'Toggle theme',
   toggleLang: 'Español',
   watchlist: 'See in Letterboxd',
@@ -122,6 +132,17 @@ const es: Translations = {
   teamNamePlaceholder: 'NOMBRE DEL EQUIPO',
   playerNamePlaceholder: 'NOMBRE DEL JUGADOR',
   addPlayer: 'Añadir Jugador',
+
+  howToPlay: 'Cómo Jugar',
+
+  howToPlayStep1: 'Forma equipos de 2 o más jugadores.',
+  howToPlayStep2:
+    'En cada ronda, un jugador es el actor. Ve una tarjeta con título, año, puntuación, sinopsis, director y géneros de una película.',
+  howToPlayStep3:
+    'El actor debe representar la película para su equipo SIN hablar ni hacer sonidos.',
+  howToPlayStep4:
+    'El equipo intenta adivinar el título dentro del tiempo límite. ¡Un acierto suma un punto!',
+  howToPlayStep5: 'Los jugadores se turnan para actuar. Gana el equipo con más puntos al final.',
 
   toggleTheme: 'Cambiar tema',
   toggleLang: 'English',
