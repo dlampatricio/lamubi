@@ -115,7 +115,7 @@ export default function LobbyPage() {
       {gameMode === 'charades' && (
         <div className="w-full max-w-5xl mx-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* LEFT: Teams + Timer */}
-          <div className="flex flex-col gap-6 md:gap-8">
+          <div className="flex flex-col gap-8">
             <HandleTeamsCard />
             <div className="md:max-w-64">
               <HandleTimeCard horizontal />
@@ -124,7 +124,7 @@ export default function LobbyPage() {
 
           {/* RIGHT: How to Play */}
           <div className="flex flex-col md:border-l md:border-border md:pl-8 pt-6 md:pt-0 border-t md:border-t-0 border-border">
-            <p className="text-xs md:text-sm font-black text-text-muted uppercase tracking-[0.4em] mb-4 md:mb-6">
+            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4 md:mb-6">
               {t('howToPlay')}
             </p>
             <ol className="space-y-4 md:space-y-6">
@@ -146,7 +146,7 @@ export default function LobbyPage() {
       {gameMode === 'impostor' && (
         <div className="w-full max-w-5xl mx-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* LEFT: Players + Debate Timer */}
-          <div className="flex flex-col gap-6 md:gap-8">
+          <div className="flex flex-col gap-8">
             <HandlePlayersCard />
             <div className="md:max-w-64">
               <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4">
@@ -173,7 +173,7 @@ export default function LobbyPage() {
 
           {/* RIGHT: How to Play */}
           <div className="flex flex-col md:border-l md:border-border md:pl-8 pt-6 md:pt-0 border-t md:border-t-0 border-border">
-            <p className="text-xs md:text-sm font-black text-text-muted uppercase tracking-[0.4em] mb-4 md:mb-6">
+            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4 md:mb-6">
               {t('howToPlay')}
             </p>
             <ol className="space-y-4 md:space-y-6">
