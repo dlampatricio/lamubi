@@ -55,7 +55,7 @@ export default function LobbyPage() {
 
   const handleStartLogic = () => {
     prepareGame();
-    router.push('/handoff');
+    router.push(gameMode === 'charades' ? '/handoff' : '/impostor');
   };
 
   return (

@@ -1,4 +1,4 @@
-import { GameMode, GameStore, Movie, Player, Team } from '@/types/game';
+import { GameMode, GameStore, ImpostorState, Movie, Player, Team } from '@/types/game';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -14,6 +14,10 @@ export const useGameStore = create<GameStore>()(
       game_state: 'idle',
       gameMode: 'charades' as GameMode,
       players: [] as Player[],
+      impostorState: 'revealing' as ImpostorState,
+      revealIndex: 0,
+      impostorIndex: null,
+      eliminatedIndices: [] as number[],
       debate_timer: 60,
       teams: initialTeams,
       current_team_index: 0,
@@ -92,6 +96,57 @@ export const useGameStore = create<GameStore>()(
       setDebateTimer: (seconds) =>
         set({ debate_timer: seconds }),
 
+      startImpostorGame: (initial_movies: Movie[]) => {
+        const [first, ...rest] = initial_movies;
+        const players = get().players;
+        const impostorIdx = Math.floor(Math.random() * players.length);
+        set({
+          game_state: 'playing',
+          current_movie: first,
+          movies: rest,
+          impostorIndex: impostorIdx,
+          impostorState: 'revealing',
+          revealIndex: 0,
+          eliminatedIndices: [],
+          timer: get().debate_timer,
+        });
+      },
+
+      nextReveal: () => {
+        const state = get();
+        const nextIdx = state.revealIndex + 1;
+        if (nextIdx >= state.players.length) {
+          set({ impostorState: 'word_wait', revealIndex: nextIdx });
+        } else {
+          set({ revealIndex: nextIdx });
+        }
+      },
+
+      startDebate: () =>
+        set((state) => ({
+          impostorState: 'debate',
+          timer: state.debate_timer,
+        })),
+
+      stopDebate: () =>
+        set({ impostorState: 'voting' }),
+
+      eliminatePlayer: (index) => {
+        const state = get();
+        const newEliminated = [...state.eliminatedIndices, index];
+        const isImpostor = index === state.impostorIndex;
+        const activeCount = state.players.length - newEliminated.length;
+        const impostorStillIn =
+          state.impostorIndex !== null && !newEliminated.includes(state.impostorIndex);
+        const nonImpostorCount = impostorStillIn ? activeCount - 1 : activeCount;
+
+        if (isImpostor || nonImpostorCount <= 1) {
+          set({ eliminatedIndices: newEliminated, impostorState: 'result' });
+        } else {
+          set({ eliminatedIndices: newEliminated, impostorState: 'word_wait' });
+        }
+      },
+
       decrementTimer: () =>
         set((state) => ({
           timer: Math.max(0, state.timer - 1),
@@ -150,20 +205,26 @@ export const useGameStore = create<GameStore>()(
         })),
 
       resetGame: () =>
-        set({
+        set((state) => ({
           game_state: 'idle',
-          teams: initialTeams.map((t) => ({
-            ...t,
-            players: [],
-            score: 0,
-            current_player_index: 0,
-          })),
+          impostorIndex: null,
+          impostorState: 'revealing' as ImpostorState,
+          revealIndex: 0,
+          eliminatedIndices: [],
+          teams: state.gameMode === 'charades'
+            ? initialTeams.map((t) => ({
+                ...t,
+                players: [],
+                score: 0,
+                current_player_index: 0,
+              }))
+            : state.teams,
           current_team_index: 0,
           timer: 60,
           initial_timer: 60,
           movies: [],
           current_movie: null,
-        }),
+        })),
 
       nextTeam: () => {
         const state = get();
@@ -220,6 +281,10 @@ export const useGameStore = create<GameStore>()(
       partialize: (state) => ({
         gameMode: state.gameMode,
         players: state.players,
+        impostorState: state.impostorState,
+        revealIndex: state.revealIndex,
+        impostorIndex: state.impostorIndex,
+        eliminatedIndices: state.eliminatedIndices,
         teams: state.teams,
         current_team_index: state.current_team_index,
         timer: state.timer,

@@ -1,4 +1,5 @@
 export type GameMode = 'charades' | 'impostor';
+export type ImpostorState = 'revealing' | 'word_wait' | 'debate' | 'voting' | 'result';
 
 export interface GameStore {
   game_state: 'idle' | 'loading' | 'playing' | 'acting' | 'finished';
@@ -9,6 +10,15 @@ export interface GameStore {
   addIndividualPlayer: (name: string) => void;
   removeIndividualPlayer: (index: number) => void;
   updateIndividualPlayerName: (index: number, name: string) => void;
+  impostorState: ImpostorState;
+  revealIndex: number;
+  impostorIndex: number | null;
+  eliminatedIndices: number[];
+  startImpostorGame: (movies: Movie[]) => void;
+  nextReveal: () => void;
+  startDebate: () => void;
+  stopDebate: () => void;
+  eliminatePlayer: (index: number) => void;
   current_team_index: number;
   timer: number;
   initial_timer: number;
