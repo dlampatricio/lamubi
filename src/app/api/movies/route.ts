@@ -21,8 +21,7 @@ export async function GET(req: NextRequest) {
     "with_runtime.gte",
     "with_runtime.lte",
     "with_original_language",
-    "with_origin_country",
-    "sort_by"
+    "with_origin_country"
   ];
 
   searchParams.forEach((value, key) => {
@@ -30,10 +29,6 @@ export async function GET(req: NextRequest) {
       url.searchParams.append(key, value);
     }
   });
-
-  if (!url.searchParams.has("sort_by")) {
-    url.searchParams.append("sort_by", "popularity.desc");
-  }
 
   try {
     const res = await fetch(url.toString());
@@ -44,7 +39,7 @@ export async function GET(req: NextRequest) {
     }
 
     const movies = await Promise.all(
-      data.results.slice(0, 10).map(async (m: any) => {
+      data.results.slice(0, 100).map(async (m: any) => {
         const dRes = await fetch(
           `https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}&append_to_response=credits`
         );
