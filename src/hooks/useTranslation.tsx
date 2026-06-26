@@ -85,10 +85,10 @@ const en: Translations = {
     'All players except one see the movie card with title, year, rating, synopsis, director, and genres.',
   impHowToPlayStep2: 'One player is the IMPOSTOR and does NOT see the movie.',
   impHowToPlayStep3:
-    'Players take turns giving clues or acting out the movie. The impostor must fake it.',
+    'Players take turns saying a word related to the movie. The impostor must act out the movie.',
   impHowToPlayStep4:
     'After the debate, everyone votes on who the impostor is. The impostor wins if not caught.',
-  impHowToPlayStep5: 'If the impostor is caught, the other players win. Switch roles each round.',
+  impHowToPlayStep5: 'If the impostor is caught, the other players win.',
 
   teamNamePlaceholder: 'TEAM NAME',
   playerNamePlaceholder: 'PLAYER NAME',
@@ -100,7 +100,8 @@ const en: Translations = {
   howToPlayStep1: 'Form teams of 2 or more players.',
   howToPlayStep2:
     'Each round, one player is the performer. They see a movie card with title, year, rating, synopsis, director, and genres.',
-  howToPlayStep3: 'The performer acts out the movie for their team WITHOUT speaking or making sounds.',
+  howToPlayStep3:
+    'The performer acts out the movie for their team WITHOUT speaking or making sounds.',
   howToPlayStep4:
     'The team tries to guess the movie title within the time limit. A correct guess earns a point!',
   howToPlayStep5: 'Players take turns performing. The team with the most points at the end wins.',
@@ -189,11 +190,10 @@ const es: Translations = {
     'Todos los jugadores excepto uno ven la tarjeta con título, año, puntuación, sinopsis, director y géneros.',
   impHowToPlayStep2: 'Un jugador es el IMPOSTOR y NO ve la película.',
   impHowToPlayStep3:
-    'Los jugadores se turnan dando pistas o actuando. El impostor debe fingir.',
+    'Los jugadores se turnan diciendo una palabra relacionada con la película. El impostor debe actuar.',
   impHowToPlayStep4:
     'Después del debate, todos votan quién es el impostor. El impostor gana si no lo descubren.',
-  impHowToPlayStep5:
-    'Si descubren al impostor, los demás ganan. Alternen roles cada ronda.',
+  impHowToPlayStep5: 'Si descubren al impostor, los demás ganan.',
 
   teamNamePlaceholder: 'NOMBRE DEL EQUIPO',
   playerNamePlaceholder: 'NOMBRE DEL JUGADOR',

@@ -33,7 +33,7 @@ export default function NavButton({
       }
 
       startTransition(() => {
-        router.replace(href);
+        router.push(href);
       });
     } catch (error) {
       console.error('Navigation action failed:', error);
