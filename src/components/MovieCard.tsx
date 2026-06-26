@@ -105,8 +105,24 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                   {movie.genres?.join(' • ') || t('na')}
                 </span>
               </div>
-
             </div>
+
+            <a
+              href={`https://letterboxd.com/tmdb/${movie.id}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border dark:border-border-strong border-gray-700 text-[10px] font-bold uppercase tracking-widest dark:text-text-muted text-gray-400 hover:dark:text-text-primary hover:text-white transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 97 36">
+                <ellipse fill="#40BCF4" cx="79.21" cy="18" rx="18.027" ry="18" />
+                <ellipse fill="#00E054" cx="48.619" cy="18" rx="18.027" ry="18" />
+                <ellipse fill="#FF8000" cx="18.027" cy="18" rx="18.027" ry="18" />
+                <path d="M33.323 27.53a10.57 10.57 0 0 1-2.731-9.53 10.57 10.57 0 0 1 2.73-9.53 10.57 10.57 0 0 1 2.732 9.53 10.57 10.57 0 0 1-2.731 9.53z" fill="#FFF" />
+                <path d="M63.914 8.47a10.57 10.57 0 0 1 2.732 9.53 10.57 10.57 0 0 1-2.732 9.53 10.57 10.57 0 0 1-2.73-9.53 10.57 10.57 0 0 1 2.73-9.53z" fill="#FFF" />
+              </svg>
+              {t('watchlist')}
+            </a>
           </div>
         </div>
 

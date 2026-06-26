@@ -66,6 +66,7 @@ const en: Translations = {
 
   toggleTheme: 'Toggle theme',
   toggleLang: 'Español',
+  watchlist: 'See in Letterboxd',
 };
 
 const es: Translations = {
@@ -128,6 +129,7 @@ const es: Translations = {
 
   toggleTheme: 'Cambiar tema',
   toggleLang: 'English',
+  watchlist: 'See in Letterboxd',
 };
 
 const all = { en, es } as const;
