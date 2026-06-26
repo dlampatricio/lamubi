@@ -30,8 +30,8 @@ export default function LobbyPage() {
   const totalPlayers = teams.reduce((sum, team) => sum + team.players.length, 0);
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col p-6 md:p-10 animate-fade-in">
-      <div className="w-full max-w-5xl mx-auto pt-8 pb-8 border-b border-border mb-10">
+    <div className="min-h-dvh bg-surface flex flex-col p-6 pt-16 md:p-10 animate-fade-in">
+      <div className="w-full max-w-5xl mx-auto pb-8 border-b border-border mb-10">
         <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.3em] mb-2">
           {t('gameSetup')}
         </p>

@@ -7,14 +7,14 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <main className="min-h-screen bg-surface flex flex-col items-center justify-center p-6 overflow-hidden">
+    <main className="min-h-dvh bg-surface flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-xs">
         <div className="border-l-4 border-text-primary pl-6 py-2 mb-16">
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.3em] mb-1">
             {t('welcomeTo')}
           </p>
           <h1 className="text-5xl font-black text-text-primary uppercase leading-none tracking-tighter">
-            {t('title')}
+            {t('siteTitle')}
           </h1>
           <p className="text-[11px] font-bold text-text-muted uppercase mt-2 tracking-widest">
             {t('subtitle')}
@@ -22,10 +22,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <NavButton 
-            href="/lobby"
-            label={t('enter')}
-          />
+          <NavButton href="/lobby" label={t('enter')} />
           <p className="text-[9px] text-text-muted uppercase font-bold tracking-widest text-center mt-2">
             {t('localMultiplayer')}
           </p>

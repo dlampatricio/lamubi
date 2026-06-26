@@ -53,7 +53,7 @@ export default function HandoffPage() {
   const showSkeleton = game_state === 'loading' || (!current_movie && game_state !== 'playing');
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center p-6 overflow-y-auto animate-fade-in">
+    <div className="min-h-dvh bg-surface flex items-center justify-center p-6 overflow-y-auto animate-fade-in">
       <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
         <div className="w-full max-w-xs md:flex-1 flex flex-col justify-center">
           <div className="border-l-4 border-text-primary pl-6 py-2 mb-3 md:mb-4">
@@ -83,7 +83,7 @@ export default function HandoffPage() {
           )}
         </div>
 
-        <div className="w-full max-w-260px md:max-w-[320px] shrink-0">
+        <div className="w-full max-w-[260px] md:max-w-[320px] shrink-0">
           <MovieCard movie={showSkeleton ? null : current_movie} showHint />
         </div>
 

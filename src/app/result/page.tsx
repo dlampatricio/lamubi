@@ -20,7 +20,7 @@ export default function ResultPage() {
   const nextPlayer = nextTeamData?.players[nextPlayerIndex];
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-6 md:p-12 animate-fade-in">
+    <div className="min-h-dvh bg-surface flex flex-col items-center justify-center p-6 md:p-12 pt-16 md:pt-12 animate-fade-in">
 
       <div className="w-full max-w-4xl border-b border-border pb-6 mb-12 text-center">
         <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-1">{t('roundSummary')}</p>

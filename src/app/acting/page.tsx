@@ -32,8 +32,8 @@ export default function ActingPage() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="h-screen bg-surface flex flex-col items-center p-8 overflow-hidden animate-fade-in">
-      <div className="w-full max-w-sm mt-4 text-center">
+    <div className="min-h-dvh bg-surface flex flex-col items-center p-8 pt-16 overflow-y-auto animate-fade-in">
+      <div className="w-full max-w-sm text-center">
         <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-2">
           {t('actingNow')}
         </p>
