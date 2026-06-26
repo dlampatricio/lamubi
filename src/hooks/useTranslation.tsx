@@ -12,7 +12,6 @@ const en: Translations = {
   siteDescription: 'Cinema Mimic Experience',
 
   welcomeTo: 'Welcome to',
-  subtitle: 'Charades Edition',
   enter: 'Enter',
   localMultiplayer: 'Local Multiplayer \u2022 No Account Needed',
 
@@ -58,7 +57,6 @@ const en: Translations = {
   na: 'N/A',
 
   roundTimer: 'Round Timer',
-  recommended: 'Recommended: 60s for standard play.',
 
   teamNamePlaceholder: 'TEAM NAME',
   playerNamePlaceholder: 'PLAYER NAME',
@@ -75,7 +73,6 @@ const es: Translations = {
   siteDescription: 'Experiencia de Mímica Cinematográfica',
 
   welcomeTo: 'Bienvenido a',
-  subtitle: 'Edición Charadas',
   enter: 'Entrar',
   localMultiplayer: 'Multijugador Local \u2022 Sin Cuenta',
 
@@ -121,7 +118,6 @@ const es: Translations = {
   na: 'N/A',
 
   roundTimer: 'Temporizador',
-  recommended: 'Recomendado: 60s para juego estándar.',
 
   teamNamePlaceholder: 'NOMBRE DEL EQUIPO',
   playerNamePlaceholder: 'NOMBRE DEL JUGADOR',
@@ -129,7 +125,7 @@ const es: Translations = {
 
   toggleTheme: 'Cambiar tema',
   toggleLang: 'English',
-  watchlist: 'See in Letterboxd',
+  watchlist: 'Ver en Letterboxd',
 };
 
 const all = { en, es } as const;
@@ -194,11 +190,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     return <LangContext.Provider value={stub}>{children}</LangContext.Provider>;
   }
 
-  return (
-    <LangContext.Provider value={{ lang, setLang, t }}>
-      {children}
-    </LangContext.Provider>
-  );
+  return <LangContext.Provider value={{ lang, setLang, t }}>{children}</LangContext.Provider>;
 }
 
 export const useTranslation = () => useContext(LangContext);

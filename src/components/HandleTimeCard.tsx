@@ -1,6 +1,6 @@
-"use client"
-import { useGameStore } from "@/hooks/useGameStore";
-import { useTranslation } from "@/hooks/useTranslation";
+'use client';
+import { useGameStore } from '@/hooks/useGameStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const HandleTimeCard = () => {
   const { t } = useTranslation();
@@ -19,17 +19,15 @@ const HandleTimeCard = () => {
             onClick={() => setInitialTimer(time)}
             className={`py-5 rounded-xl font-black text-base transition-all border ${
               initial_timer === time
-                ? "bg-text-primary border-text-primary text-surface shadow-lg"
-                : "bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary"
+                ? 'bg-text-primary border-text-primary text-surface shadow-lg'
+                : 'bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary'
             }`}
           >
-            {time}<span className="text-[9px] ml-0.5 opacity-50">s</span>
+            {time}
+            <span className="text-[9px] ml-0.5 opacity-50">s</span>
           </button>
         ))}
       </div>
-      <p className="mt-6 pt-6 border-t border-border text-[10px] font-medium text-text-muted italic leading-relaxed">
-        {t('recommended')}
-      </p>
     </div>
   );
 };

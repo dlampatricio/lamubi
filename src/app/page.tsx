@@ -16,9 +16,6 @@ export default function Home() {
           <h1 className="text-5xl font-black text-text-primary uppercase leading-none tracking-tighter">
             {t('siteTitle')}
           </h1>
-          <p className="text-[11px] font-bold text-text-muted uppercase mt-2 tracking-widest">
-            {t('subtitle')}
-          </p>
         </div>
 
         <div className="flex flex-col gap-4">
