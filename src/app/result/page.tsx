@@ -1,9 +1,11 @@
 "use client"
 
-import MovieCard from "@/components/MovieCard";
+import dynamic from 'next/dynamic';
 import ScoreList from "@/components/ScoreList";
 import NavButton from "@/components/NavButton";
 import { useGameStore } from "@/hooks/useGameStore";
+
+const MovieCard = dynamic(() => import('@/components/MovieCard'));
 
 export default function ResultPage() {
   const { nextTeam, teams, current_team_index } = useGameStore();

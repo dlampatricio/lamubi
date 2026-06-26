@@ -74,6 +74,16 @@ export const useGameStore = create<GameStore>()(
           timer: Math.max(0, state.timer - 1),
         })),
 
+      prepareGame: () =>
+        set((state) => ({
+          game_state: 'loading',
+          teams: state.teams.map((t) => ({ ...t, score: 0, current_player_index: 0 })),
+          current_team_index: 0,
+          timer: state.initial_timer,
+          movies: [],
+          current_movie: null,
+        })),
+
       skipMovie: () => {
         const state = get();
         if (state.movies.length === 0) {

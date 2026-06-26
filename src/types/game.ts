@@ -1,5 +1,5 @@
 export interface GameStore {
-  game_state: 'idle' | 'playing' | 'acting' | 'finished';
+  game_state: 'idle' | 'loading' | 'playing' | 'acting' | 'finished';
   teams: Team[];
   current_team_index: number;
   timer: number;
@@ -12,6 +12,7 @@ export interface GameStore {
   updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void;
   setInitialTimer: (seconds: number) => void;
   decrementTimer: () => void;
+  prepareGame: () => void;
   skipMovie: () => void;
   startGame: (movies: Movie[]) => void;
   startActing: () => void;

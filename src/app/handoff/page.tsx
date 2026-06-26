@@ -1,24 +1,48 @@
 'use client';
 
-import MovieCard from '@/components/MovieCard';
+import dynamic from 'next/dynamic';
 import NavButton from '@/components/NavButton';
 import { useGameStore } from '@/hooks/useGameStore';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
+
+const MovieCard = dynamic(() => import('@/components/MovieCard'), {
+  loading: () => (
+    <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-gray-100 bg-gray-50">
+      <span className="inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
+      <span className="text-gray-400 font-bold text-[10px] animate-pulse uppercase tracking-widest">
+        Loading movie...
+      </span>
+    </div>
+  ),
+});
 
 export default function HandoffPage() {
-  const { teams, current_team_index, current_movie, movies, startActing, skipMovie } =
+  const { game_state, teams, current_team_index, current_movie, startActing, skipMovie, startGame } =
     useGameStore();
-  const initialLoad = useRef(true);
+  const [toast, setToast] = useState<string | null>(null);
 
   const current_team = teams[current_team_index];
   const current_player = current_team?.players[current_team.current_player_index];
 
   useEffect(() => {
-    if (initialLoad.current && !current_movie && movies.length === 0) {
-      initialLoad.current = false;
-      skipMovie();
-    }
+    if (game_state !== 'loading') return;
+    fetch('/api/movies?count=8')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          startGame(data);
+        }
+      })
+      .catch(console.error);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleSkip = () => {
+    skipMovie();
+    setToast('Skipped — loading next movie...');
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  const showSkeleton = game_state === 'loading' || (!current_movie && game_state !== 'playing');
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-6 overflow-y-auto animate-fade-in">
@@ -38,31 +62,41 @@ export default function HandoffPage() {
             Memorize the movie details. You will act it out for your team without speaking.
           </p>
 
-          <div className="hidden md:flex flex-col gap-3">
+          {!showSkeleton && (
+            <div className="hidden md:flex flex-col gap-3">
+              <NavButton href="/acting" label="I'm Ready" action={startActing} variant="primary" />
+              <button
+                className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] hover:text-black transition-colors text-left pl-2"
+                onClick={handleSkip}
+              >
+                Skip this movie
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="w-full max-w-260px md:max-w-[320px] shrink-0">
+          <MovieCard movie={showSkeleton ? null : current_movie} showHint />
+        </div>
+
+        {!showSkeleton && (
+          <div className="w-full max-w-xs flex md:hidden flex-col gap-3 pt-4">
             <NavButton href="/acting" label="I'm Ready" action={startActing} variant="primary" />
             <button
-              className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] hover:text-black transition-colors text-left pl-2"
-              onClick={() => skipMovie()}
+              className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] text-center"
+              onClick={handleSkip}
             >
               Skip this movie
             </button>
           </div>
-        </div>
-
-        <div className="w-full max-w-260px md:max-w-[320px] shrink-0">
-          <MovieCard movie={current_movie} showHint />
-        </div>
-
-        <div className="w-full max-w-xs flex md:hidden flex-col gap-3 pt-4">
-          <NavButton href="/acting" label="I'm Ready" action={startActing} variant="primary" />
-          <button
-            className="text-gray-400 font-bold py-2 text-[10px] uppercase tracking-[0.15em] text-center"
-            onClick={() => skipMovie()}
-          >
-            Skip this movie
-          </button>
-        </div>
+        )}
       </div>
+
+      {toast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest animate-fade-in shadow-2xl z-50">
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
