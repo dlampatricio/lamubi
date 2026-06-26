@@ -1,9 +1,19 @@
+export type GameMode = 'charades' | 'impostor';
+
 export interface GameStore {
   game_state: 'idle' | 'loading' | 'playing' | 'acting' | 'finished';
+  gameMode: GameMode;
+  setGameMode: (mode: GameMode) => void;
   teams: Team[];
+  players: Player[];
+  addIndividualPlayer: (name: string) => void;
+  removeIndividualPlayer: (index: number) => void;
+  updateIndividualPlayerName: (index: number, name: string) => void;
   current_team_index: number;
   timer: number;
   initial_timer: number;
+  debate_timer: number;
+  setDebateTimer: (seconds: number) => void;
   movies: Movie[];
   current_movie: Movie | null;
   updateTeamName: (index: number, name: string) => void;

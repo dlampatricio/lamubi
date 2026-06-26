@@ -1,4 +1,4 @@
-import { GameStore, Movie, Team } from '@/types/game';
+import { GameMode, GameStore, Movie, Player, Team } from '@/types/game';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -12,6 +12,9 @@ export const useGameStore = create<GameStore>()(
     (set, get) => ({
       // --- STATE ---
       game_state: 'idle',
+      gameMode: 'charades' as GameMode,
+      players: [] as Player[],
+      debate_timer: 60,
       teams: initialTeams,
       current_team_index: 0,
       timer: 60,
@@ -20,6 +23,23 @@ export const useGameStore = create<GameStore>()(
       current_movie: null as Movie | null,
 
       // --- ACTIONS ---
+      setGameMode: (mode) => set({ gameMode: mode }),
+
+      addIndividualPlayer: (name) =>
+        set((state) => ({
+          players: [...state.players, { name: name || `Player ${state.players.length + 1}` }],
+        })),
+
+      removeIndividualPlayer: (index) =>
+        set((state) => ({
+          players: state.players.filter((_, i) => i !== index),
+        })),
+
+      updateIndividualPlayerName: (index, name) =>
+        set((state) => ({
+          players: state.players.map((p, i) => (i === index ? { name } : p)),
+        })),
+
       updateTeamName: (index, newName) =>
         set((state) => ({
           teams: state.teams.map((t, i) => (i === index ? { ...t, name: newName } : t)),
@@ -68,6 +88,9 @@ export const useGameStore = create<GameStore>()(
           initial_timer: seconds,
           timer: seconds,
         }),
+
+      setDebateTimer: (seconds) =>
+        set({ debate_timer: seconds }),
 
       decrementTimer: () =>
         set((state) => ({
@@ -195,10 +218,13 @@ export const useGameStore = create<GameStore>()(
     {
       name: 'lamubi-game',
       partialize: (state) => ({
+        gameMode: state.gameMode,
+        players: state.players,
         teams: state.teams,
         current_team_index: state.current_team_index,
         timer: state.timer,
         initial_timer: state.initial_timer,
+        debate_timer: state.debate_timer,
         movies: state.movies,
         current_movie: state.current_movie,
         game_state: state.game_state,

@@ -17,6 +17,11 @@ const en: Translations = {
 
   gameSetup: 'Game Setup',
   lobby: 'Lobby',
+  selectGameMode: 'Select Game Mode',
+  charades: 'Charades',
+  charadesDesc: 'Act out movies for your team without speaking',
+  impostor: 'Impostor',
+  impostorDesc: 'Find the player who doesn\u2019t know the movie',
   playersReady: '{count} player(s) ready',
   nameAllPlayers: 'Name all players to begin',
   beginMatch: 'Begin Match',
@@ -57,10 +62,21 @@ const en: Translations = {
   na: 'N/A',
 
   roundTimer: 'Round Timer',
+  debateTimer: 'Debate Timer',
+
+  impHowToPlayStep1:
+    'All players except one see the movie card with title, year, rating, synopsis, director, and genres.',
+  impHowToPlayStep2: 'One player is the IMPOSTOR and does NOT see the movie.',
+  impHowToPlayStep3:
+    'Players take turns giving clues or acting out the movie. The impostor must fake it.',
+  impHowToPlayStep4:
+    'After the debate, everyone votes on who the impostor is. The impostor wins if not caught.',
+  impHowToPlayStep5: 'If the impostor is caught, the other players win. Switch roles each round.',
 
   teamNamePlaceholder: 'TEAM NAME',
   playerNamePlaceholder: 'PLAYER NAME',
   addPlayer: 'Add Player',
+  playersLabel: 'Players',
 
   howToPlay: 'How to Play',
 
@@ -88,6 +104,11 @@ const es: Translations = {
 
   gameSetup: 'Configuración',
   lobby: 'Sala',
+  selectGameMode: 'Seleccionar Modo',
+  charades: 'Charadas',
+  charadesDesc: 'Actúa películas para tu equipo sin hablar',
+  impostor: 'Impostor',
+  impostorDesc: 'Encuentra al jugador que no conoce la película',
   playersReady: '{count} jugador(es) listo(s)',
   nameAllPlayers: 'Nombra todos los jugadores para empezar',
   beginMatch: 'Comenzar Partida',
@@ -128,10 +149,22 @@ const es: Translations = {
   na: 'N/A',
 
   roundTimer: 'Temporizador',
+  debateTimer: 'Tiempo de Debate',
+
+  impHowToPlayStep1:
+    'Todos los jugadores excepto uno ven la tarjeta con título, año, puntuación, sinopsis, director y géneros.',
+  impHowToPlayStep2: 'Un jugador es el IMPOSTOR y NO ve la película.',
+  impHowToPlayStep3:
+    'Los jugadores se turnan dando pistas o actuando. El impostor debe fingir.',
+  impHowToPlayStep4:
+    'Después del debate, todos votan quién es el impostor. El impostor gana si no lo descubren.',
+  impHowToPlayStep5:
+    'Si descubren al impostor, los demás ganan. Alternen roles cada ronda.',
 
   teamNamePlaceholder: 'NOMBRE DEL EQUIPO',
   playerNamePlaceholder: 'NOMBRE DEL JUGADOR',
   addPlayer: 'Añadir Jugador',
+  playersLabel: 'Jugadores',
 
   howToPlay: 'Cómo Jugar',
 
