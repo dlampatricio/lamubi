@@ -1,10 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import NavButton from '@/components/NavButton';
 import { useGameStore } from '@/hooks/useGameStore';
-import { useEffect, useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
+import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
 const MovieCard = dynamic(() => import('@/components/MovieCard'), {
   loading: () => {
@@ -25,9 +25,15 @@ const MovieCard = dynamic(() => import('@/components/MovieCard'), {
 
 export default function HandoffPage() {
   const { t } = useTranslation();
-  const { game_state, teams, current_team_index, current_movie, startActing, skipMovie, startGame } =
-    useGameStore();
-  const [toast, setToast] = useState<string | null>(null);
+  const {
+    game_state,
+    teams,
+    current_team_index,
+    current_movie,
+    startActing,
+    skipMovie,
+    startGame,
+  } = useGameStore();
 
   const current_team = teams[current_team_index];
   const current_player = current_team?.players[current_team.current_player_index];
@@ -46,8 +52,6 @@ export default function HandoffPage() {
 
   const handleSkip = () => {
     skipMovie();
-    setToast(t('skippedToast'));
-    setTimeout(() => setToast(null), 2000);
   };
 
   const showSkeleton = game_state === 'loading' || (!current_movie && game_state !== 'playing');
@@ -72,7 +76,12 @@ export default function HandoffPage() {
 
           {!showSkeleton && (
             <div className="hidden md:flex flex-col gap-3">
-              <NavButton href="/acting" label={t('imReady')} action={startActing} variant="primary" />
+              <NavButton
+                href="/acting"
+                label={t('imReady')}
+                action={startActing}
+                variant="primary"
+              />
               <button
                 className="text-text-muted font-bold py-2 text-[10px] uppercase tracking-[0.15em] hover:text-text-primary transition-colors text-left pl-2"
                 onClick={handleSkip}
@@ -83,7 +92,7 @@ export default function HandoffPage() {
           )}
         </div>
 
-        <div className="w-full max-w-[260px] md:max-w-[320px] shrink-0">
+        <div className="w-full max-w-xs md:max-w-[320px] shrink-0">
           <MovieCard movie={showSkeleton ? null : current_movie} showHint />
         </div>
 
@@ -99,12 +108,6 @@ export default function HandoffPage() {
           </div>
         )}
       </div>
-
-      {toast && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-text-primary text-surface px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest animate-fade-in shadow-2xl z-50">
-          {toast}
-        </div>
-      )}
     </div>
   );
 }
