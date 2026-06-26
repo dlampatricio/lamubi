@@ -32,12 +32,12 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div
-        className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-500 ease-in-out"
+        className="relative [transform-style:preserve-3d] transition-transform duration-500 ease-in-out"
         style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
 
         {/* FRONT FACE */}
-        <div className="w-full h-full [backface-visibility:hidden]">
+        <div className="[backface-visibility:hidden]">
           <div className="w-full bg-surface rounded-2xl overflow-hidden border border-border shadow-sm flex flex-col">
             <div className="relative aspect-2/3 bg-surface-secondary">
               <Image
