@@ -29,14 +29,16 @@ export default function ImpostorPage() {
 
   useEffect(() => {
     if (game_state === 'idle' || game_state === 'loading') {
+      let cancelled = false;
       fetch('/api/movies?count=8')
         .then((res) => res.json())
         .then((data) => {
-          if (Array.isArray(data) && data.length > 0) {
+          if (!cancelled && Array.isArray(data) && data.length > 0) {
             startImpostorGame(data);
           }
         })
         .catch(console.error);
+      return () => { cancelled = true; };
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

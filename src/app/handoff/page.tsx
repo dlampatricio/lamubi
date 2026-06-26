@@ -40,14 +40,16 @@ export default function HandoffPage() {
 
   useEffect(() => {
     if (game_state !== 'loading') return;
+    let cancelled = false;
     fetch('/api/movies?count=8')
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
           startGame(data);
         }
       })
       .catch(console.error);
+    return () => { cancelled = true; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSkip = () => {
