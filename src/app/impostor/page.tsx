@@ -38,7 +38,9 @@ export default function ImpostorPage() {
           }
         })
         .catch(console.error);
-      return () => { cancelled = true; };
+      return () => {
+        cancelled = true;
+      };
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -70,14 +72,19 @@ export default function ImpostorPage() {
     }
   };
 
-  const loading = game_state === 'idle' || game_state === 'loading' || !current_movie || impostorIndex === null || !revealReady;
+  const loading =
+    game_state === 'idle' ||
+    game_state === 'loading' ||
+    !current_movie ||
+    impostorIndex === null ||
+    !revealReady;
 
   if (loading) {
     return (
       <div className="min-h-dvh bg-surface flex flex-col items-center justify-center p-6">
         <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
         <p className="mt-4 text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
-          {t('loadingMovie')}
+          {t('loading')}
         </p>
       </div>
     );
@@ -113,7 +120,18 @@ export default function ImpostorPage() {
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-text-muted mb-6"
+                >
                   <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
                   <line x1="12" y1="18" x2="12" y2="18" />
                 </svg>
@@ -143,7 +161,18 @@ export default function ImpostorPage() {
       {/* WORD WAIT PHASE */}
       {impostorState === 'word_wait' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-xs mx-auto w-full text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted mb-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-text-muted mb-6"
+          >
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
           <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-2">
@@ -180,7 +209,18 @@ export default function ImpostorPage() {
       {/* VOTING PHASE */}
       {impostorState === 'voting' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-sm mx-auto w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted mb-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-text-muted mb-6"
+          >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>

@@ -14,7 +14,7 @@ const MovieCard = dynamic(() => import('@/components/MovieCard'), {
         <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
           <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
           <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
-            {t('loadingMovie')}
+            {t('loading')}
           </span>
         </div>
       );
@@ -44,12 +44,16 @@ export default function HandoffPage() {
     fetch('/api/movies?count=8')
       .then((res) => res.json())
       .then((data) => {
-        if (!cancelled && Array.isArray(data) && data.length > 0) {
+        if (cancelled || !Array.isArray(data) || data.length === 0) return;
+        const { game_state: currentState } = useGameStore.getState();
+        if (currentState === 'loading') {
           startGame(data);
         }
       })
       .catch(console.error);
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSkip = () => {

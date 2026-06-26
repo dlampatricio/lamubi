@@ -43,7 +43,6 @@ const en: Translations = {
   nameAllPlayers: 'Name all players to begin',
   beginMatch: 'Begin Match',
 
-  loadingMovie: 'Loading movie...',
   nextPerformer: 'Next Performer',
   player: 'Player',
   memorizeInstructions:
@@ -148,7 +147,6 @@ const es: Translations = {
   nameAllPlayers: 'Nombra todos los jugadores para empezar',
   beginMatch: 'Comenzar Partida',
 
-  loadingMovie: 'Cargando película...',
   nextPerformer: 'Siguiente Actor',
   player: 'Jugador',
   memorizeInstructions:

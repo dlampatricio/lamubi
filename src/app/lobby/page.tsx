@@ -29,7 +29,7 @@ const impSteps = [
 
 export default function LobbyPage() {
   const { t } = useTranslation();
-  const { gameMode, setGameMode, teams, players, debate_timer, setDebateTimer, prepareGame } =
+  const { gameMode, setGameMode, teams, players, debate_timer, setDebateTimer, prepareGame, startGame } =
     useGameStore();
   const router = useRouter();
 
@@ -55,6 +55,14 @@ export default function LobbyPage() {
 
   const handleStartLogic = () => {
     prepareGame();
+    if (gameMode === 'charades') {
+      fetch('/api/movies?count=8')
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) startGame(data);
+        })
+        .catch(() => {});
+    }
     router.push(gameMode === 'charades' ? '/handoff' : '/impostor');
   };
 

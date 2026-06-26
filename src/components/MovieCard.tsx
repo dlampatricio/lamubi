@@ -23,7 +23,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
       <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
         <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
         <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
-          {t('loadingMovie')}
+          {t('loading')}
         </span>
       </div>
     );
