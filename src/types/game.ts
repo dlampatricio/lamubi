@@ -1,4 +1,4 @@
-export interface GameStore {  
+export interface GameStore {
   game_state: 'idle' | 'playing' | 'acting' | 'finished';
   teams: Team[];
   current_team_index: number;
@@ -9,28 +9,29 @@ export interface GameStore {
   updateTeamName: (index: number, name: string) => void;
   addPlayer: (teamIndex: number, playerName: string) => void;
   removePlayer: (teamIndex: number, playerIndex: number) => void;
-  updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void
+  updatePlayerName: (teamIndex: number, playerIndex: number, newName: string) => void;
   setInitialTimer: (seconds: number) => void;
   decrementTimer: () => void;
-  getNextMovie: () => void;
   skipMovie: () => void;
   startGame: (movies: Movie[]) => void;
   startActing: () => void;
   endRound: () => void;
   resetScores: () => void;
+  resetGame: () => void;
   nextTeam: () => void;
   correctGuess: () => void;
+  refillMovies: () => Promise<void>;
 }
 
 export interface Team {
-    name: string;
-    score: number;
-    players: Player[];
-    current_player_index: number;
+  name: string;
+  score: number;
+  players: Player[];
+  current_player_index: number;
 }
 
 export interface Player {
-    name: string;
+  name: string;
 }
 
 export interface Movie {

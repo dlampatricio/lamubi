@@ -1,22 +1,24 @@
 "use client"
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { useGameStore } from "@/hooks/useGameStore";
 import { Movie } from '../types/game';
 
 interface MovieCardProps {
   movie?: Movie | null;
+  showHint?: boolean;
 }
 
-const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
+const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
   const { current_movie } = useGameStore();
   const [isFlipped, setIsFlipped] = useState(false);
   const movie = propMovie ?? current_movie;
 
   if (!movie) {
     return (
-      <div className="w-full max-w-xs aspect-2/3 rounded-2xl flex items-center justify-center border border-gray-100 bg-gray-50">
+      <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-gray-100 bg-gray-50">
+        <span className="inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
         <span className="text-gray-400 font-bold text-[10px] animate-pulse uppercase tracking-widest">Loading...</span>
       </div>
     );
@@ -24,26 +26,32 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
 
   return (
     <div 
-      className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer"
+      className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer group"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <motion.div 
-        className="relative w-full h-full [transform-style:preserve-3d]"
-        initial={false}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      <div 
+        className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-500 ease-in-out"
+        style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
         
-        {/* --- CARA FRONTAL --- */}
-        {/* Usamos backface-visibility para que desaparezca al girar */}
+        {/* FRONT FACE */}
         <div className="w-full h-full [backface-visibility:hidden]">
           <div className="w-full bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm flex flex-col">
             <div className="relative aspect-2/3 bg-gray-100">
-              <img 
+              <Image 
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
                 alt={movie.title} 
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 384px"
               />
+              {showHint && !isFlipped && (
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end justify-center pb-6">
+                  <span className="text-white/0 group-hover:text-white/70 text-[9px] font-black uppercase tracking-widest transition-all drop-shadow-lg">
+                    Tap to flip
+                  </span>
+                </div>
+              )}
             </div>
             <div className="p-5 text-left bg-white">
               <h2 className="text-xl font-black leading-tight text-gray-900 uppercase">
@@ -56,8 +64,7 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
           </div>
         </div>
 
-        {/* --- CARA TRASERA --- */}
-        {/* 'absolute inset-0' hace que el reverso calce EXACTO con el tamaño del frontal */}
+        {/* BACK FACE */}
         <div 
           className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-950 rounded-2xl p-6 flex flex-col border border-gray-800 shadow-2xl overflow-hidden"
         >
@@ -65,7 +72,7 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
           
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
             <p className="text-sm text-gray-300 font-medium leading-relaxed italic">
-              "{movie.overview || "No description available."}"
+              &ldquo;{movie.overview || 'No description available.'}&rdquo;
             </p>
           </div>
           
@@ -86,7 +93,7 @@ const MovieCard = ({ movie: propMovie }: MovieCardProps) => {
           </div>
         </div>
 
-      </motion.div>
+      </div>
     </div>
   );
 };

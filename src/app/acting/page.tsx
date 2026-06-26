@@ -1,69 +1,89 @@
-"use client"
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useGameStore } from "../../hooks/useGameStore";
-import Timer from "../../components/Timer";
-import NavButton from "@/components/NavButton";
+import NavButton from '@/components/NavButton';
+import Timer from '@/components/Timer';
+import { useGameStore } from '@/hooks/useGameStore';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function ActingPage() {
-    const router = useRouter();
-    const { game_state, teams, current_team_index, correctGuess, endRound } = useGameStore();
-    
-    const current_team = teams[current_team_index];
-    const current_player = current_team?.players[current_team.current_player_index];
+  const router = useRouter();
+  const { game_state, teams, current_team_index, correctGuess, endRound } = useGameStore();
+  const [surrenderConfirm, setSurrenderConfirm] = useState(false);
 
-    const handleCorrect = () => {
-        correctGuess();
-        endRound();
-        router.replace('/result'); 
-    };
+  const current_team = teams[current_team_index];
+  const current_player = current_team?.players[current_team.current_player_index];
 
-    const handleSurrender = () => {
-        endRound();
-        router.replace('/result');
-    };
+  const handleCorrect = () => {
+    correctGuess();
+    endRound();
+  };
 
-    if (game_state !== 'acting') return null;
+  const handleSurrender = () => {
+    endRound();
+  };
 
-    return (
-        <div className="h-screen bg-white flex flex-col items-center p-8 overflow-hidden">
-            
-            {/* Header: Player & Team */}
-            <div className="w-full max-w-sm mt-4 text-center">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-2">
-                    Acting Now
-                </p>
-                <h1 className="text-4xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2">
-                    {current_player?.name}
-                </h1>
-                <div className="inline-block px-3 py-1 bg-gray-100 rounded-full">
-                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                        {current_team?.name}
-                    </p>
-                </div>
-            </div>
+  useEffect(() => {
+    if (game_state !== 'acting') {
+      router.replace('/lobby');
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-            {/* Timer*/}
-            <div className="flex-1 flex items-center justify-center w-full">
-                <Timer />
-            </div>
-
-            {/* Footer: Botones */}
-            <div className="w-full max-w-xs mb-6 space-y-6">
-                <NavButton
-                    href="/result"
-                    label="Guessed!"
-                    action={handleCorrect}
-                    className="py-6 rounded-3xl text-2xl"
-                />
-                <NavButton
-                    href="/result"
-                    label="Surrender"
-                    variant="secondary"
-                    action={handleSurrender}
-                />
-            </div>
-
+  return (
+    <div className="h-screen bg-white flex flex-col items-center p-8 overflow-hidden animate-fade-in">
+      <div className="w-full max-w-sm mt-4 text-center">
+        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-2">
+          Acting Now
+        </p>
+        <h1 className="text-4xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2">
+          {current_player?.name}
+        </h1>
+        <div className="inline-block px-3 py-1 bg-gray-100 rounded-full">
+          <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+            {current_team?.name}
+          </p>
         </div>
-    );
+      </div>
+
+      <div className="flex-1 flex items-center justify-center w-full">
+        <Timer />
+      </div>
+
+      <div className="w-full max-w-xs mb-6 space-y-6">
+        <NavButton
+          href="/result"
+          label="Guessed!"
+          action={handleCorrect}
+          className="py-6 rounded-3xl text-2xl"
+        />
+
+        {!surrenderConfirm ? (
+          <button
+            onClick={() => setSurrenderConfirm(true)}
+            className="w-full py-5 rounded-2xl font-bold text-[10px] tracking-[0.3em] text-gray-300 hover:text-black transition-all uppercase text-center"
+          >
+            Surrender
+          </button>
+        ) : (
+          <div className="flex gap-3 animate-fade-in">
+            <button
+              onClick={() => {
+                handleSurrender();
+                router.replace('/result');
+              }}
+              className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-red-600 text-white hover:bg-red-700 transition-all"
+            >
+              Give Up
+            </button>
+            <button
+              onClick={() => setSurrenderConfirm(false)}
+              className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-gray-100 text-gray-500 hover:text-gray-900 transition-all"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

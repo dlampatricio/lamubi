@@ -25,7 +25,7 @@ export default function ScoreList() {
                 {team.name}
               </span>
             </div>
-            <span className="text-4xl font-black tabular-nums text-black">
+            <span className="text-4xl font-black tabular-nums text-black animate-score-pop" key={team.score}>
               {team.score}
             </span>
           </div>
