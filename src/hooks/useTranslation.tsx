@@ -106,7 +106,7 @@ const en: Translations = {
   howToPlayStep5: 'Players take turns performing. The team with the most points at the end wins.',
 
   toggleTheme: 'Toggle theme',
-  toggleLang: 'Español',
+  toggleLang: 'English',
   watchlist: 'See in Letterboxd',
 };
 
@@ -210,7 +210,7 @@ const es: Translations = {
   howToPlayStep5: 'Los jugadores se turnan para actuar. Gana el equipo con más puntos al final.',
 
   toggleTheme: 'Cambiar tema',
-  toggleLang: 'English',
+  toggleLang: 'Español',
   watchlist: 'Ver en Letterboxd',
 };
 
