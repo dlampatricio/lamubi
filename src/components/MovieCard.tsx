@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useGameStore } from "@/hooks/useGameStore";
 import { Movie } from '../types/game';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface MovieCardProps {
   movie?: Movie | null;
@@ -11,6 +12,7 @@ interface MovieCardProps {
 }
 
 const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
+  const { t } = useTranslation();
   const { current_movie } = useGameStore();
   const [isFlipped, setIsFlipped] = useState(false);
   const movie = propMovie ?? current_movie;
@@ -19,7 +21,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
     return (
       <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
         <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
-        <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">Loading...</span>
+        <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">{t('loading')}</span>
       </div>
     );
   }
@@ -48,7 +50,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
               {showHint && !isFlipped && (
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end justify-center pb-6">
                   <span className="text-white/0 group-hover:text-white/70 text-[9px] font-black uppercase tracking-widest transition-all drop-shadow-lg">
-                    Tap to flip
+                    {t('tapToFlip')}
                   </span>
                 </div>
               )}
@@ -58,7 +60,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 {movie.title} {!!(movie.year) && <span className="text-text-muted ml-1">({movie.year})</span>}
               </h2>
               <div className="mt-2 text-[11px] font-bold text-text-secondary uppercase">
-                Rating: {movie.rating} / 10
+                {t('rating')}: {movie.rating} / 10
               </div>
             </div>
           </div>
@@ -68,24 +70,24 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
         <div
           className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden"
         >
-          <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">Synopsis</p>
+          <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">{t('synopsis')}</p>
 
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
             <p className="text-sm dark:text-text-secondary text-gray-300 font-medium leading-relaxed italic">
-              &ldquo;{movie.overview || 'No description available.'}&rdquo;
+              &ldquo;{movie.overview || t('noDescription')}&rdquo;
             </p>
           </div>
 
           <div className="mt-6 pt-6 border-t dark:border-border-strong border-gray-800 space-y-3">
             <div className="flex justify-between items-end">
               <div>
-                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">Director</span>
-                <span className="text-xs font-black dark:text-text-primary text-white uppercase">{movie.director || "Unknown"}</span>
+                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">{t('director')}</span>
+                <span className="text-xs font-black dark:text-text-primary text-white uppercase">{movie.director || t('unknown')}</span>
               </div>
               <div className="text-right">
-                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">Genres</span>
+                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">{t('genres')}</span>
                 <span className="text-[10px] font-bold dark:text-text-secondary text-gray-400 uppercase">
-                  {movie.genres?.join(' • ') || "N/A"}
+                  {movie.genres?.join(' • ') || t('na')}
                 </span>
               </div>
 

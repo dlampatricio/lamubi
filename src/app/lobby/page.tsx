@@ -4,8 +4,10 @@ import { useGameStore } from "@/hooks/useGameStore";
 import HandleTimeCard from "@/components/HandleTimeCard";
 import HandleTeamsCard from "@/components/HandleTeamsCard";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function LobbyPage() {
+  const { t } = useTranslation();
   const { prepareGame, teams } = useGameStore();
   const router = useRouter();
 
@@ -31,10 +33,10 @@ export default function LobbyPage() {
     <div className="min-h-screen bg-surface flex flex-col p-6 md:p-10 animate-fade-in">
       <div className="w-full max-w-5xl mx-auto pt-8 pb-8 border-b border-border mb-10">
         <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.3em] mb-2">
-          Game Setup
+          {t('gameSetup')}
         </p>
         <h1 className="text-5xl md:text-6xl font-black text-text-primary uppercase tracking-tighter leading-none">
-          Lobby
+          {t('lobby')}
         </h1>
       </div>
 
@@ -52,11 +54,11 @@ export default function LobbyPage() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <p className="text-sm font-bold text-text-primary">
-              {totalPlayers} player{totalPlayers !== 1 ? 's' : ''} ready
+              {t('playersReady', { count: totalPlayers })}
             </p>
             {!canStart && (
               <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">
-                Name all players to begin
+                {t('nameAllPlayers')}
               </p>
             )}
           </div>
@@ -69,7 +71,7 @@ export default function LobbyPage() {
               : "bg-surface-tertiary text-text-muted cursor-not-allowed"
             }`}
           >
-            Begin Match
+            {t('beginMatch')}
           </button>
         </div>
       </div>

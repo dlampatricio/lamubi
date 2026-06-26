@@ -4,6 +4,8 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
+import { LangProvider } from "@/hooks/useTranslation";
+import LanguageToggle from "@/components/LanguageToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-surface text-text-primary`}>
         <ThemeProvider>
-          <ThemeToggle />
-          {children}
-          <Analytics />
+          <LangProvider>
+            <ThemeToggle />
+            <LanguageToggle />
+            {children}
+            <Analytics />
+          </LangProvider>
         </ThemeProvider>
       </body>
     </html>

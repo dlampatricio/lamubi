@@ -5,8 +5,10 @@ import Timer from '@/components/Timer';
 import { useGameStore } from '@/hooks/useGameStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function ActingPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { game_state, teams, current_team_index, correctGuess, endRound } = useGameStore();
   const [surrenderConfirm, setSurrenderConfirm] = useState(false);
@@ -33,7 +35,7 @@ export default function ActingPage() {
     <div className="h-screen bg-surface flex flex-col items-center p-8 overflow-hidden animate-fade-in">
       <div className="w-full max-w-sm mt-4 text-center">
         <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-2">
-          Acting Now
+          {t('actingNow')}
         </p>
         <h1 className="text-4xl font-black text-text-primary uppercase tracking-tighter leading-none mb-2">
           {current_player?.name}
@@ -52,7 +54,7 @@ export default function ActingPage() {
       <div className="w-full max-w-xs mb-6 space-y-6">
         <NavButton
           href="/result"
-          label="Guessed!"
+          label={t('guessed')}
           action={handleCorrect}
           className="py-6 rounded-3xl text-2xl"
         />
@@ -62,7 +64,7 @@ export default function ActingPage() {
             onClick={() => setSurrenderConfirm(true)}
             className="w-full py-5 rounded-2xl font-bold text-[10px] tracking-[0.3em] text-text-muted hover:text-text-primary transition-all uppercase text-center"
           >
-            Surrender
+            {t('surrender')}
           </button>
         ) : (
           <div className="flex gap-3 animate-fade-in">
@@ -73,13 +75,13 @@ export default function ActingPage() {
               }}
               className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-red-600 text-white hover:bg-red-700 transition-all"
             >
-              Give Up
+              {t('giveUp')}
             </button>
             <button
               onClick={() => setSurrenderConfirm(false)}
               className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-surface-secondary text-text-secondary hover:text-text-primary transition-all"
             >
-              Cancel
+              {t('cancel')}
             </button>
           </div>
         )}

@@ -1,7 +1,9 @@
 'use client';
 import { useGameStore } from '../hooks/useGameStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const HandleTeamsCard = () => {
+  const { t } = useTranslation();
   const { teams, updateTeamName, addPlayer, removePlayer, updatePlayerName } = useGameStore();
 
   return (
@@ -13,7 +15,7 @@ const HandleTeamsCard = () => {
               className="bg-transparent border-b-2 border-border focus:border-text-primary text-3xl font-black uppercase tracking-tighter focus:outline-none w-full pb-2 transition-all placeholder:text-text-muted text-text-primary"
               value={team.name}
               onChange={(e) => updateTeamName(teamIdx, e.target.value)}
-              placeholder="TEAM NAME"
+              placeholder={t('teamNamePlaceholder')}
             />
           </div>
 
@@ -24,7 +26,7 @@ const HandleTeamsCard = () => {
                   className="flex-1 bg-surface-secondary hover:bg-surface-tertiary focus:bg-surface-secondary border border-border focus:border-border-strong rounded-xl text-sm font-semibold uppercase tracking-wider text-text-primary outline-none transition-all px-4 py-3"
                   value={p.name}
                   onChange={(e) => updatePlayerName(teamIdx, pIdx, e.target.value)}
-                  placeholder="PLAYER NAME"
+                  placeholder={t('playerNamePlaceholder')}
                 />
                 <button
                   className="opacity-0 group-hover/item:opacity-100 text-text-muted hover:text-red-500 transition-all px-2 text-xs"
@@ -41,7 +43,7 @@ const HandleTeamsCard = () => {
             onClick={() => addPlayer(teamIdx, '')}
           >
             <span className="text-lg leading-none">+</span>
-            Add Player
+            {t('addPlayer')}
           </button>
 
           {teamIdx < teams.length - 1 && <div className="mt-12 border-b border-border w-full" />}

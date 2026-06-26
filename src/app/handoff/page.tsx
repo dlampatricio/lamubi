@@ -4,19 +4,27 @@ import dynamic from 'next/dynamic';
 import NavButton from '@/components/NavButton';
 import { useGameStore } from '@/hooks/useGameStore';
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const MovieCard = dynamic(() => import('@/components/MovieCard'), {
-  loading: () => (
-    <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
-      <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
-      <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
-        Loading movie...
-      </span>
-    </div>
-  ),
+  loading: () => {
+    const Fallback = () => {
+      const { t } = useTranslation();
+      return (
+        <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
+          <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
+          <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
+            {t('loadingMovie')}
+          </span>
+        </div>
+      );
+    };
+    return <Fallback />;
+  },
 });
 
 export default function HandoffPage() {
+  const { t } = useTranslation();
   const { game_state, teams, current_team_index, current_movie, startActing, skipMovie, startGame } =
     useGameStore();
   const [toast, setToast] = useState<string | null>(null);
@@ -38,7 +46,7 @@ export default function HandoffPage() {
 
   const handleSkip = () => {
     skipMovie();
-    setToast('Skipped — loading next movie...');
+    setToast(t('skippedToast'));
     setTimeout(() => setToast(null), 2000);
   };
 
@@ -50,26 +58,26 @@ export default function HandoffPage() {
         <div className="w-full max-w-xs md:flex-1 flex flex-col justify-center">
           <div className="border-l-4 border-text-primary pl-6 py-2 mb-3 md:mb-4">
             <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] mb-1">
-              Next Performer
+              {t('nextPerformer')}
             </p>
             <h1 className="text-2xl md:text-3xl font-black text-text-primary uppercase leading-none mb-2">
-              {current_player?.name || 'Player'}
+              {current_player?.name || t('player')}
             </h1>
             <p className="text-xs font-bold text-text-muted uppercase">{current_team?.name}</p>
           </div>
 
           <p className="text-[11px] text-text-secondary leading-relaxed mb-6 md:mb-8 pl-6 border-l border-border">
-            Memorize the movie details. You will act it out for your team without speaking.
+            {t('memorizeInstructions')}
           </p>
 
           {!showSkeleton && (
             <div className="hidden md:flex flex-col gap-3">
-              <NavButton href="/acting" label="I'm Ready" action={startActing} variant="primary" />
+              <NavButton href="/acting" label={t('imReady')} action={startActing} variant="primary" />
               <button
                 className="text-text-muted font-bold py-2 text-[10px] uppercase tracking-[0.15em] hover:text-text-primary transition-colors text-left pl-2"
                 onClick={handleSkip}
               >
-                Skip this movie
+                {t('skipMovie')}
               </button>
             </div>
           )}
@@ -81,12 +89,12 @@ export default function HandoffPage() {
 
         {!showSkeleton && (
           <div className="w-full max-w-xs flex md:hidden flex-col gap-3 pt-4">
-            <NavButton href="/acting" label="I'm Ready" action={startActing} variant="primary" />
+            <NavButton href="/acting" label={t('imReady')} action={startActing} variant="primary" />
             <button
               className="text-text-muted font-bold py-2 text-[10px] uppercase tracking-[0.15em] text-center"
               onClick={handleSkip}
             >
-              Skip this movie
+              {t('skipMovie')}
             </button>
           </div>
         )}

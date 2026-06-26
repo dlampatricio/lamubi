@@ -1,14 +1,16 @@
 "use client"
 
 import { useGameStore } from "@/hooks/useGameStore";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ScoreList() {
+  const { t } = useTranslation();
   const { teams } = useGameStore();
 
   return (
     <div className="space-y-8">
       <p className="pl-2 text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-6 md:border-l-2 border-text-primary">
-        Current Standings
+        {t('currentStandings')}
       </p>
 
       <div className="space-y-6">
@@ -19,7 +21,7 @@ export default function ScoreList() {
           >
             <div className="flex flex-col items-start text-left">
               <span className="text-[9px] font-bold text-text-muted uppercase tracking-widest leading-none mb-1">
-                Team {idx + 1}
+                {t('team')} {idx + 1}
               </span>
               <span className="text-lg font-black uppercase text-text-primary">
                 {team.name}

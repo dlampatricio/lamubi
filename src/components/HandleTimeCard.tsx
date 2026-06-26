@@ -1,14 +1,16 @@
 "use client"
 import { useGameStore } from "@/hooks/useGameStore";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const HandleTimeCard = () => {
+  const { t } = useTranslation();
   const { initial_timer, setInitialTimer } = useGameStore();
   const options = [30, 60, 90];
 
   return (
     <div className="flex flex-col">
       <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-6">
-        Round Timer
+        {t('roundTimer')}
       </p>
       <div className="grid grid-cols-3 md:grid-cols-1 gap-3">
         {options.map((time) => (
@@ -26,7 +28,7 @@ const HandleTimeCard = () => {
         ))}
       </div>
       <p className="mt-6 pt-6 border-t border-border text-[10px] font-medium text-text-muted italic leading-relaxed">
-        Recommended: 60s for standard play.
+        {t('recommended')}
       </p>
     </div>
   );
