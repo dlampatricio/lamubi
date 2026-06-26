@@ -17,30 +17,30 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
 
   if (!movie) {
     return (
-      <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-gray-100 bg-gray-50">
-        <span className="inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
-        <span className="text-gray-400 font-bold text-[10px] animate-pulse uppercase tracking-widest">Loading...</span>
+      <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
+        <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
+        <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">Loading...</span>
       </div>
     );
   }
 
   return (
-    <div 
+    <div
       className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer group"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div 
+      <div
         className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-500 ease-in-out"
         style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
-        
+
         {/* FRONT FACE */}
         <div className="w-full h-full [backface-visibility:hidden]">
-          <div className="w-full bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm flex flex-col">
-            <div className="relative aspect-2/3 bg-gray-100">
-              <Image 
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                alt={movie.title} 
+          <div className="w-full bg-surface rounded-2xl overflow-hidden border border-border shadow-sm flex flex-col">
+            <div className="relative aspect-2/3 bg-surface-secondary">
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 384px"
@@ -53,11 +53,11 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 </div>
               )}
             </div>
-            <div className="p-5 text-left bg-white">
-              <h2 className="text-xl font-black leading-tight text-gray-900 uppercase">
-                {movie.title} {!!(movie.year) && <span className="text-gray-400 ml-1">({movie.year})</span>}
+            <div className="p-5 text-left bg-surface">
+              <h2 className="text-xl font-black leading-tight text-text-primary uppercase">
+                {movie.title} {!!(movie.year) && <span className="text-text-muted ml-1">({movie.year})</span>}
               </h2>
-              <div className="mt-2 text-[11px] font-bold text-gray-500 uppercase">
+              <div className="mt-2 text-[11px] font-bold text-text-secondary uppercase">
                 Rating: {movie.rating} / 10
               </div>
             </div>
@@ -65,30 +65,30 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
         </div>
 
         {/* BACK FACE */}
-        <div 
-          className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-950 rounded-2xl p-6 flex flex-col border border-gray-800 shadow-2xl overflow-hidden"
+        <div
+          className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden"
         >
-          <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">Synopsis</p>
-          
+          <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">Synopsis</p>
+
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
-            <p className="text-sm text-gray-300 font-medium leading-relaxed italic">
+            <p className="text-sm dark:text-text-secondary text-gray-300 font-medium leading-relaxed italic">
               &ldquo;{movie.overview || 'No description available.'}&rdquo;
             </p>
           </div>
-          
-          <div className="mt-6 pt-6 border-t border-gray-800 space-y-3">
+
+          <div className="mt-6 pt-6 border-t dark:border-border-strong border-gray-800 space-y-3">
             <div className="flex justify-between items-end">
               <div>
-                <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest">Director</span>
-                <span className="text-xs font-black text-white uppercase">{movie.director || "Unknown"}</span>
+                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">Director</span>
+                <span className="text-xs font-black dark:text-text-primary text-white uppercase">{movie.director || "Unknown"}</span>
               </div>
               <div className="text-right">
-                <span className="block text-[8px] font-bold text-gray-500 uppercase tracking-widest">Genres</span>
-                <span className="text-[10px] font-bold text-gray-400 uppercase">
+                <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">Genres</span>
+                <span className="text-[10px] font-bold dark:text-text-secondary text-gray-400 uppercase">
                   {movie.genres?.join(' • ') || "N/A"}
                 </span>
               </div>
-              
+
             </div>
           </div>
         </div>

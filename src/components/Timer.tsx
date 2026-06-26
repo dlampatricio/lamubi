@@ -22,7 +22,7 @@ const Timer = () => {
     <div className="relative flex flex-col items-center">
       <h2
         className={`text-[10rem] md:text-[12rem] font-black tabular-nums leading-none tracking-tighter transition-colors duration-300 ${
-          timer < 10 ? 'text-red-600' : 'text-black'
+          timer < 10 ? 'text-red-600' : 'text-text-primary'
         }`}
       >
         {timer}

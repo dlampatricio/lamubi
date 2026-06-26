@@ -6,8 +6,8 @@ const HandleTimeCard = () => {
   const options = [30, 60, 90];
 
   return (
-    <div className="flex flex-col h-full">
-      <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] mb-8">
+    <div className="flex flex-col">
+      <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-6">
         Round Timer
       </p>
       <div className="grid grid-cols-3 md:grid-cols-1 gap-3">
@@ -15,17 +15,17 @@ const HandleTimeCard = () => {
           <button
             key={time}
             onClick={() => setInitialTimer(time)}
-            className={`py-6 rounded-2xl font-black text-sm transition-all border ${
+            className={`py-5 rounded-xl font-black text-base transition-all border ${
               initial_timer === time
-                ? "bg-black border-black text-white shadow-xl shadow-gray-200 -translate-y-1"
-                : "bg-white border-gray-100 text-gray-300 hover:border-gray-200"
+                ? "bg-text-primary border-text-primary text-surface shadow-lg"
+                : "bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary"
             }`}
           >
-            {time}<span className="text-[10px] ml-0.5 opacity-50">S</span>
+            {time}<span className="text-[9px] ml-0.5 opacity-50">s</span>
           </button>
         ))}
       </div>
-      <p className="mt-auto pt-8 text-[9px] font-medium text-gray-400 italic leading-relaxed">
+      <p className="mt-6 pt-6 border-t border-border text-[10px] font-medium text-text-muted italic leading-relaxed">
         Recommended: 60s for standard play.
       </p>
     </div>

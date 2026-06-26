@@ -30,16 +30,16 @@ export default function ActingPage() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="h-screen bg-white flex flex-col items-center p-8 overflow-hidden animate-fade-in">
+    <div className="h-screen bg-surface flex flex-col items-center p-8 overflow-hidden animate-fade-in">
       <div className="w-full max-w-sm mt-4 text-center">
-        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-2">
+        <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-2">
           Acting Now
         </p>
-        <h1 className="text-4xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2">
+        <h1 className="text-4xl font-black text-text-primary uppercase tracking-tighter leading-none mb-2">
           {current_player?.name}
         </h1>
-        <div className="inline-block px-3 py-1 bg-gray-100 rounded-full">
-          <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+        <div className="inline-block px-3 py-1 bg-surface-secondary rounded-full">
+          <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">
             {current_team?.name}
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function ActingPage() {
         {!surrenderConfirm ? (
           <button
             onClick={() => setSurrenderConfirm(true)}
-            className="w-full py-5 rounded-2xl font-bold text-[10px] tracking-[0.3em] text-gray-300 hover:text-black transition-all uppercase text-center"
+            className="w-full py-5 rounded-2xl font-bold text-[10px] tracking-[0.3em] text-text-muted hover:text-text-primary transition-all uppercase text-center"
           >
             Surrender
           </button>
@@ -77,7 +77,7 @@ export default function ActingPage() {
             </button>
             <button
               onClick={() => setSurrenderConfirm(false)}
-              className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-gray-100 text-gray-500 hover:text-gray-900 transition-all"
+              className="flex-1 py-4 rounded-2xl font-black text-sm uppercase bg-surface-secondary text-text-secondary hover:text-text-primary transition-all"
             >
               Cancel
             </button>

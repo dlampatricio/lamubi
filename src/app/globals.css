@@ -1,5 +1,40 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f9fafb;
+  --color-surface-tertiary: #f3f4f6;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+}
+
+.dark {
+  --color-surface: #0a0a0b;
+  --color-surface-secondary: #18181b;
+  --color-surface-tertiary: #27272a;
+  --color-border: #27272a;
+  --color-border-strong: #3f3f46;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-accent: #818cf8;
+  --color-accent-hover: #a5b4fc;
+}
+
+html.enable-transitions,
+html.enable-transitions *,
+html.enable-transitions *::before,
+html.enable-transitions *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -31,6 +66,6 @@
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: var(--color-border-strong);
   border-radius: 2px;
 }

@@ -46,9 +46,9 @@ export default function NavButton({
     'w-full py-5 rounded-2xl font-black text-xl uppercase tracking-tight transition-all active:scale-95 text-center disabled:opacity-50 disabled:active:scale-100';
 
   const variants = {
-    primary: 'bg-black text-white hover:bg-gray-900 shadow-xl',
+    primary: 'bg-text-primary text-surface hover:opacity-90 shadow-xl',
     secondary:
-      'text-gray-300 font-bold text-[10px] tracking-[0.3em] hover:text-black bg-transparent',
+      'text-text-muted font-bold text-[10px] tracking-[0.3em] hover:text-text-primary bg-transparent',
   };
 
   return (
