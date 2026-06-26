@@ -218,20 +218,6 @@ export default function LobbyPage() {
           </button>
         </div>
       </div>
-
-      <div className="w-full max-w-5xl mx-auto pb-6">
-        <p className="text-[10px] font-bold text-text-muted text-center tracking-wider">
-          made by{' '}
-          <a
-            href="https://dlampatricio.github.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-text-primary transition-colors"
-          >
-            Patricio Dlamini
-          </a>
-        </p>
-      </div>
     </div>
   );
 }
