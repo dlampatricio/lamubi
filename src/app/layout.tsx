@@ -16,12 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://lamubi.vercel.app'),
   title: {
     default: 'La Mubi — Movies Mimic Experience',
     template: '%s — La Mubi',
   },
   description:
     'Multiplayer movie-charades party game. Act out, guess, and find the impostor in your favorite films.',
+  applicationName: 'La Mubi',
   keywords: ['charades', 'movie game', 'impostor', 'party game', 'multiplayer'],
   authors: [{ name: 'David Lam' }],
   creator: 'David Lam',
@@ -32,6 +34,7 @@ export const metadata: Metadata = {
     title: 'La Mubi — Movies Mimic Experience',
     description:
       'Multiplayer movie-charades party game. Act out, guess, and find the impostor in your favorite films.',
+    url: 'https://lamubi.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
