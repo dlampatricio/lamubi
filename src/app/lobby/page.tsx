@@ -29,7 +29,7 @@ const impSteps = [
 
 export default function LobbyPage() {
   const { t } = useTranslation();
-  const { gameMode, setGameMode, teams, players, debate_timer, setDebateTimer, prepareGame, startGame } =
+  const { gameMode, setGameMode, teams, players, debate_timer, setDebateTimer, impostorCount, setImpostorCount, prepareGame, startGame } =
     useGameStore();
   const router = useRouter();
 
@@ -38,6 +38,12 @@ export default function LobbyPage() {
     router.prefetch('/acting');
     router.prefetch('/result');
   }, [router]);
+
+  useEffect(() => {
+    const max = Math.floor((players.length - 1) / 2);
+    if (impostorCount > max) setImpostorCount(Math.max(1, max));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [players.length]);
 
   const canStart =
     gameMode === 'charades'
@@ -156,25 +162,50 @@ export default function LobbyPage() {
           {/* LEFT: Players + Debate Timer */}
           <div className="flex flex-col gap-8">
             <HandlePlayersCard />
-            <div className="md:max-w-64">
-              <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4">
-                {t('debateTimer')}
-              </p>
-              <div className="grid grid-cols-3 gap-2 md:gap-3">
-                {[30, 60, 90].map((time) => (
-                  <button
-                    key={time}
-                    onClick={() => setDebateTimer(time)}
-                    className={`py-3 md:py-5 rounded-xl font-black text-sm md:text-base transition-all border ${
-                      debate_timer === time
-                        ? 'bg-text-primary border-text-primary text-surface shadow-lg'
-                        : 'bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary'
-                    }`}
-                  >
-                    {time}
-                    <span className="text-[9px] ml-0.5 opacity-50">s</span>
-                  </button>
-                ))}
+            <div className="md:max-w-64 space-y-6">
+              <div>
+                <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4">
+                  {t('impostorCount')}
+                </p>
+                <div className="grid grid-cols-3 gap-2 md:gap-3">
+                  {Array.from(
+                    { length: Math.max(0, Math.floor((players.length - 1) / 2)) },
+                    (_, i) => i + 1
+                  ).map((count) => (
+                    <button
+                      key={count}
+                      onClick={() => setImpostorCount(count)}
+                      className={`py-3 md:py-5 rounded-xl font-black text-sm md:text-base transition-all border ${
+                        impostorCount === count
+                          ? 'bg-text-primary border-text-primary text-surface shadow-lg'
+                          : 'bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary'
+                      }`}
+                    >
+                      {count}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-4">
+                  {t('debateTimer')}
+                </p>
+                <div className="grid grid-cols-3 gap-2 md:gap-3">
+                  {[30, 60, 90].map((time) => (
+                    <button
+                      key={time}
+                      onClick={() => setDebateTimer(time)}
+                      className={`py-3 md:py-5 rounded-xl font-black text-sm md:text-base transition-all border ${
+                        debate_timer === time
+                          ? 'bg-text-primary border-text-primary text-surface shadow-lg'
+                          : 'bg-surface-secondary border-border text-text-secondary hover:border-border-strong hover:text-text-primary'
+                      }`}
+                    >
+                      {time}
+                      <span className="text-[9px] ml-0.5 opacity-50">s</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -185,16 +216,18 @@ export default function LobbyPage() {
               {t('howToPlay')}
             </p>
             <ol className="space-y-4 md:space-y-6">
-              {impSteps.map((key, i) => (
+              {impSteps.map((key, i) => {
+                const impKey = impostorCount > 1 && key !== 'impHowToPlayStep1' ? `${key}_plural` : key;
+                return (
                 <li key={key} className="flex gap-3 md:gap-4">
                   <span className="shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full bg-surface-tertiary text-text-secondary text-[10px] md:text-sm font-black flex items-center justify-center">
                     {i + 1}
                   </span>
                   <p className="text-xs md:text-base font-medium text-text-secondary leading-relaxed">
-                    {t(key)}
+                    {t(impKey as any, { count: impostorCount })}
                   </p>
-                </li>
-              ))}
+                </li>);
+              })}
             </ol>
           </div>
         </div>

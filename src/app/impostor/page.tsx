@@ -16,7 +16,7 @@ export default function ImpostorPage() {
     current_movie,
     impostorState,
     revealIndex,
-    impostorIndex,
+    impostorIndices,
     eliminatedIndices,
     lastEliminatedIndex,
     timer,
@@ -46,7 +46,7 @@ export default function ImpostorPage() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const isImpostorReveal = impostorIndex === revealIndex;
+  const isImpostorReveal = impostorIndices.includes(revealIndex);
   const currentPlayer = players[revealIndex];
   const activePlayers = players.filter((_, i) => !eliminatedIndices.includes(i));
   const [showRole, setShowRole] = useState(true);
@@ -54,10 +54,10 @@ export default function ImpostorPage() {
   const isLastReveal = revealIndex >= players.length - 1;
 
   useEffect(() => {
-    if (game_state === 'playing' && current_movie && impostorIndex !== null) {
+    if (game_state === 'playing' && current_movie && impostorIndices.length > 0) {
       setRevealReady(true);
     }
-  }, [game_state, current_movie, impostorIndex]);
+  }, [game_state, current_movie, impostorIndices]);
 
   const handleRevealTap = () => {
     if (showRole) {
@@ -78,7 +78,7 @@ export default function ImpostorPage() {
     game_state === 'idle' ||
     game_state === 'loading' ||
     !current_movie ||
-    impostorIndex === null ||
+    impostorIndices.length === 0 ||
     !revealReady;
 
   if (loading) {
@@ -110,7 +110,7 @@ export default function ImpostorPage() {
                 {isImpostorReveal ? (
                   <div className="text-center py-12">
                     <p className="text-4xl md:text-5xl font-black text-red-500 uppercase tracking-tighter mb-4">
-                      {t('revealingImpostor')}
+                      {impostorIndices.length > 1 ? t('revealingAImpostor') : t('revealingImpostor')}
                     </p>
                     <p className="text-sm text-text-secondary font-medium">
                       {t('revealingImpostorHint')}
@@ -164,8 +164,16 @@ export default function ImpostorPage() {
       {impostorState === 'word_wait' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-xs mx-auto w-full text-center">
           {lastEliminatedIndex !== null && (
-            <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-6 px-4 py-3 rounded-2xl bg-surface-secondary border border-border">
-              {t('eliminatedNotImpostor', { name: players[lastEliminatedIndex]?.name })}
+            <p className={`text-xs font-bold uppercase tracking-wider mb-6 px-4 py-3 rounded-2xl border ${
+              impostorIndices.includes(lastEliminatedIndex)
+                ? 'text-red-500 bg-red-500/10 border-red-500/30'
+                : 'text-text-muted bg-surface-secondary border-border'
+            }`}>
+              {impostorIndices.includes(lastEliminatedIndex)
+                ? t('eliminatedImpostor', { name: players[lastEliminatedIndex]?.name })
+                : impostorIndices.length > 1
+                  ? t('eliminatedNotAImpostor', { name: players[lastEliminatedIndex]?.name })
+                  : t('eliminatedNotImpostor', { name: players[lastEliminatedIndex]?.name })}
             </p>
           )}
           <svg
@@ -232,7 +240,7 @@ export default function ImpostorPage() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] mb-6">
-            {t('voteToEliminate')}
+            {impostorIndices.length > 1 ? t('voteToEliminatePlural') : t('voteToEliminate')}
           </p>
           <div className="w-full space-y-3">
             {activePlayers.map((p) => {
@@ -261,25 +269,37 @@ export default function ImpostorPage() {
       {/* RESULT PHASE */}
       {impostorState === 'result' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-lg mx-auto w-full">
-          {eliminatedIndices.includes(impostorIndex!) ? (
-            <div className="text-center mb-8">
-              <p className="text-3xl md:text-4xl font-black text-green-500 uppercase tracking-tighter mb-2">
-                {t('nonImpostorsWin')}
-              </p>
-              <p className="text-xs font-medium text-text-secondary">
-                {t('theImpostorWas')}: {players[impostorIndex!]?.name}
-              </p>
-            </div>
-          ) : (
-            <div className="text-center mb-8">
-              <p className="text-3xl md:text-4xl font-black text-red-500 uppercase tracking-tighter mb-2">
-                {t('impostorWins')}
-              </p>
-              <p className="text-xs font-medium text-text-secondary">
-                {t('theImpostorWas')}: {players[impostorIndex!]?.name}
-              </p>
-            </div>
-          )}
+          {(() => {
+            const allEliminated = impostorIndices.every((i) => eliminatedIndices.includes(i));
+            const survivingImpostors = impostorIndices.filter((i) => !eliminatedIndices.includes(i));
+            const caughtImpostors = impostorIndices.filter((i) => eliminatedIndices.includes(i));
+            return allEliminated ? (
+              <div className="text-center mb-8">
+                <p className="text-3xl md:text-4xl font-black text-green-500 uppercase tracking-tighter mb-2">
+                  {t('nonImpostorsWin')}
+                </p>
+                <p className="text-xs font-medium text-text-secondary">
+                  {impostorIndices.length === 1 ? t('theImpostorWas') : t('theImpostorsWere')}: {impostorIndices.map((i) => players[i]?.name).join(', ')}
+                </p>
+              </div>
+            ) : (
+              <div className="text-center mb-8">
+                <p className="text-3xl md:text-4xl font-black text-red-500 uppercase tracking-tighter mb-2">
+                  {impostorIndices.length === 1 ? t('impostorWins') : t('impostorsWin')}
+                </p>
+                {survivingImpostors.length > 0 && (
+                  <p className="text-xs font-medium text-green-500 mb-1">
+                    {t('survivingImpostors')}: {survivingImpostors.map((i) => players[i]?.name).join(', ')}
+                  </p>
+                )}
+                {caughtImpostors.length > 0 && (
+                  <p className="text-xs font-medium text-text-muted">
+                    {t('caughtImpostors')}: {caughtImpostors.map((i) => players[i]?.name).join(', ')}
+                  </p>
+                )}
+              </div>
+            );
+          })()}
 
           <div className="w-full max-w-xs mx-auto border-t border-border pt-8">
             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] text-center mb-4">

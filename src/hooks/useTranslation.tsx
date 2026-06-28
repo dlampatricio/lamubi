@@ -25,6 +25,7 @@ const en: Translations = {
 
   revealingTitle: 'Look at the screen',
   revealingImpostor: 'You are the IMPOSTOR!',
+  revealingAImpostor: 'You are an IMPOSTOR!',
   revealingImpostorHint: 'Fake it \u2014 you don\u2019t know the movie.',
   revealingMovieHint: 'Memorize the movie details.',
   tapToContinue: 'Tap to continue',
@@ -33,13 +34,20 @@ const en: Translations = {
   wordRound: 'Word Round',
   wordRoundDesc: 'Each player says one word related to the movie.',
   eliminatedNotImpostor: '{name} was not the impostor.',
+  eliminatedNotAImpostor: '{name} was not an impostor.',
+  eliminatedImpostor: '{name} was an IMPOSTOR!',
   startDebate: 'Start Debate',
   stopDebate: 'Stop Debate',
   voteToEliminate: 'Who is the impostor?',
+  voteToEliminatePlural: 'Who are the impostors?',
   noEliminate: "Don't eliminate",
   impostorWins: 'The IMPOSTOR wins!',
+  impostorsWin: 'The IMPOSTORS win!',
   nonImpostorsWin: 'The players win!',
   theImpostorWas: 'The impostor was',
+  theImpostorsWere: 'The impostors were',
+  survivingImpostors: 'Surviving',
+  caughtImpostors: 'Caught',
   backToLobby: 'Back to Lobby',
   playersReady: '{count} player(s) ready',
   nameAllPlayers: 'Name all players to begin',
@@ -81,15 +89,24 @@ const en: Translations = {
 
   roundTimer: 'Round Timer',
   debateTimer: 'Debate Timer',
+  impostorCount: 'Impostors',
 
   impHowToPlayStep1:
-    'All players except one see the movie card with title, year, rating, synopsis, director, and genres.',
-  impHowToPlayStep2: 'One player is the IMPOSTOR and does NOT see the movie.',
+    'Non-impostor players see the movie card with title, year, rating, synopsis, director, and genres.',
+  impHowToPlayStep2:
+    'One player is the IMPOSTOR and does not see the movie.',
+  impHowToPlayStep2_plural:
+    '{count} players are the IMPOSTORS and do not see the movie.',
   impHowToPlayStep3:
-    'Players take turns saying a word related to the movie. The impostor must act out the movie.',
+    'Players take turns saying a word related to the movie. The impostor must blend in.',
+  impHowToPlayStep3_plural:
+    'Players take turns saying a word related to the movie. The impostors must blend in.',
   impHowToPlayStep4:
     'After the debate, everyone votes on who the impostor is. The impostor wins if not caught.',
+  impHowToPlayStep4_plural:
+    'After the debate, everyone votes on who the impostors are. The impostors win if not all are caught.',
   impHowToPlayStep5: 'If the impostor is caught, the other players win.',
+  impHowToPlayStep5_plural: 'If the impostors are caught, the other players win.',
 
   teamNamePlaceholder: 'TEAM NAME',
   playerNamePlaceholder: 'PLAYER NAME',
@@ -131,6 +148,7 @@ const es: Translations = {
 
   revealingTitle: 'Mira la pantalla',
   revealingImpostor: '¡Eres el IMPOSTOR!',
+  revealingAImpostor: '¡Eres un IMPOSTOR!',
   revealingImpostorHint: 'Finge \u2014 no conoces la película.',
   revealingMovieHint: 'Memoriza los detalles de la película.',
   tapToContinue: 'Toca para continuar',
@@ -139,13 +157,20 @@ const es: Translations = {
   wordRound: 'Ronda de Palabras',
   wordRoundDesc: 'Cada jugador dice una palabra relacionada con la película.',
   eliminatedNotImpostor: '{name} no era el impostor.',
+  eliminatedNotAImpostor: '{name} no era un impostor.',
+  eliminatedImpostor: '¡{name} era un IMPOSTOR!',
   startDebate: 'Iniciar Debate',
   stopDebate: 'Detener Debate',
   voteToEliminate: '¿Quién es el impostor?',
+  voteToEliminatePlural: '¿Quiénes son los impostores?',
   noEliminate: 'No eliminar',
   impostorWins: '¡El IMPOSTOR gana!',
+  impostorsWin: '¡Los IMPOSTORES ganan!',
   nonImpostorsWin: '¡Los jugadores ganan!',
   theImpostorWas: 'El impostor era',
+  theImpostorsWere: 'Los impostores eran',
+  survivingImpostors: 'Sobrevivientes',
+  caughtImpostors: 'Atrapados',
   backToLobby: 'Volver a la Sala',
   playersReady: '{count} jugador(es) listo(s)',
   nameAllPlayers: 'Nombra todos los jugadores para empezar',
@@ -187,15 +212,24 @@ const es: Translations = {
 
   roundTimer: 'Temporizador',
   debateTimer: 'Tiempo de Debate',
+  impostorCount: 'Impostores',
 
   impHowToPlayStep1:
-    'Todos los jugadores excepto uno ven la tarjeta con título, año, puntuación, sinopsis, director y géneros.',
-  impHowToPlayStep2: 'Un jugador es el IMPOSTOR y NO ve la película.',
+    'Los jugadores que no son impostores ven la tarjeta con título, año, puntuación, sinopsis, director y géneros.',
+  impHowToPlayStep2:
+    'Un jugador es el IMPOSTOR y no ve la película.',
+  impHowToPlayStep2_plural:
+    '{count} jugadores son los IMPOSTORES y no ven la película.',
   impHowToPlayStep3:
-    'Los jugadores se turnan diciendo una palabra relacionada con la película. El impostor debe actuar.',
+    'Los jugadores se turnan diciendo una palabra relacionada con la película. El impostor debe fingir.',
+  impHowToPlayStep3_plural:
+    'Los jugadores se turnan diciendo una palabra relacionada con la película. Los impostores deben fingir.',
   impHowToPlayStep4:
     'Después del debate, todos votan quién es el impostor. El impostor gana si no lo descubren.',
+  impHowToPlayStep4_plural:
+    'Después del debate, todos votan quiénes son los impostores. Los impostores ganan si no atrapan a todos.',
   impHowToPlayStep5: 'Si descubren al impostor, los demás ganan.',
+  impHowToPlayStep5_plural: 'Si atrapan a los impostores, los demás ganan.',
 
   teamNamePlaceholder: 'NOMBRE DEL EQUIPO',
   playerNamePlaceholder: 'NOMBRE DEL JUGADOR',

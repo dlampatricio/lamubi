@@ -16,7 +16,8 @@ export const useGameStore = create<GameStore>()(
       players: [] as Player[],
       impostorState: 'revealing' as ImpostorState,
       revealIndex: 0,
-      impostorIndex: null,
+      impostorIndices: [] as number[],
+      impostorCount: 1,
       eliminatedIndices: [] as number[],
       lastEliminatedIndex: null as number | null,
       debate_timer: 60,
@@ -97,15 +98,21 @@ export const useGameStore = create<GameStore>()(
       setDebateTimer: (seconds) =>
         set({ debate_timer: seconds }),
 
+      setImpostorCount: (count) =>
+        set({ impostorCount: count }),
+
       startImpostorGame: (initial_movies: Movie[]) => {
         const [first, ...rest] = initial_movies;
         const players = get().players;
-        const impostorIdx = Math.floor(Math.random() * players.length);
+        const count = get().impostorCount;
+        const indices = Array.from({ length: players.length }, (_, i) => i);
+        const shuffled = indices.sort(() => Math.random() - 0.5);
+        const impostorIndices = shuffled.slice(0, count);
         set({
           game_state: 'playing',
           current_movie: first,
           movies: rest,
-          impostorIndex: impostorIdx,
+          impostorIndices,
           impostorState: 'revealing',
           revealIndex: 0,
           eliminatedIndices: [],
@@ -140,16 +147,21 @@ export const useGameStore = create<GameStore>()(
       eliminatePlayer: (index) => {
         const state = get();
         const newEliminated = [...state.eliminatedIndices, index];
-        const isImpostor = index === state.impostorIndex;
+        const isImpostor = state.impostorIndices.includes(index);
         const activeCount = state.players.length - newEliminated.length;
-        const impostorStillIn =
-          state.impostorIndex !== null && !newEliminated.includes(state.impostorIndex);
-        const nonImpostorCount = impostorStillIn ? activeCount - 1 : activeCount;
+        const remainingImpostors = state.impostorIndices.filter(
+          (i) => !newEliminated.includes(i)
+        ).length;
+        const remainingNonImpostors = activeCount - remainingImpostors;
 
-        if (isImpostor || nonImpostorCount <= 1) {
+        if (remainingImpostors === 0 || remainingImpostors >= remainingNonImpostors) {
           set({ eliminatedIndices: newEliminated, impostorState: 'result' });
         } else {
-          set({ eliminatedIndices: newEliminated, impostorState: 'word_wait', lastEliminatedIndex: index });
+          set({
+            eliminatedIndices: newEliminated,
+            impostorState: 'word_wait',
+            lastEliminatedIndex: index,
+          });
         }
       },
 
@@ -213,7 +225,7 @@ export const useGameStore = create<GameStore>()(
       resetGame: () =>
         set((state) => ({
           game_state: 'idle',
-          impostorIndex: null,
+          impostorIndices: [],
           impostorState: 'revealing' as ImpostorState,
           revealIndex: 0,
           eliminatedIndices: [],
@@ -290,7 +302,8 @@ export const useGameStore = create<GameStore>()(
         players: state.players,
         impostorState: state.impostorState,
         revealIndex: state.revealIndex,
-        impostorIndex: state.impostorIndex,
+        impostorIndices: state.impostorIndices,
+        impostorCount: state.impostorCount,
         eliminatedIndices: state.eliminatedIndices,
         teams: state.teams,
         current_team_index: state.current_team_index,

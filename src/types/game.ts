@@ -12,7 +12,9 @@ export interface GameStore {
   updateIndividualPlayerName: (index: number, name: string) => void;
   impostorState: ImpostorState;
   revealIndex: number;
-  impostorIndex: number | null;
+  impostorIndices: number[];
+  impostorCount: number;
+  setImpostorCount: (count: number) => void;
   eliminatedIndices: number[];
   lastEliminatedIndex: number | null;
   startImpostorGame: (movies: Movie[]) => void;
