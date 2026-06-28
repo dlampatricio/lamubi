@@ -18,6 +18,7 @@ export default function ImpostorPage() {
     revealIndex,
     impostorIndex,
     eliminatedIndices,
+    lastEliminatedIndex,
     timer,
     startImpostorGame,
     nextReveal,
@@ -162,6 +163,11 @@ export default function ImpostorPage() {
       {/* WORD WAIT PHASE */}
       {impostorState === 'word_wait' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-xs mx-auto w-full text-center">
+          {lastEliminatedIndex !== null && (
+            <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-6 px-4 py-3 rounded-2xl bg-surface-secondary border border-border">
+              {t('eliminatedNotImpostor', { name: players[lastEliminatedIndex]?.name })}
+            </p>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="40"

@@ -18,6 +18,7 @@ export const useGameStore = create<GameStore>()(
       revealIndex: 0,
       impostorIndex: null,
       eliminatedIndices: [] as number[],
+      lastEliminatedIndex: null as number | null,
       debate_timer: 60,
       teams: initialTeams,
       current_team_index: 0,
@@ -108,6 +109,7 @@ export const useGameStore = create<GameStore>()(
           impostorState: 'revealing',
           revealIndex: 0,
           eliminatedIndices: [],
+          lastEliminatedIndex: null,
           timer: get().debate_timer,
         });
       },
@@ -126,13 +128,14 @@ export const useGameStore = create<GameStore>()(
         set((state) => ({
           impostorState: 'debate',
           timer: state.debate_timer,
+          lastEliminatedIndex: null,
         })),
 
       stopDebate: () =>
         set({ impostorState: 'voting' }),
 
       skipElimination: () =>
-        set({ impostorState: 'word_wait' }),
+        set({ impostorState: 'word_wait', lastEliminatedIndex: null }),
 
       eliminatePlayer: (index) => {
         const state = get();
@@ -146,7 +149,7 @@ export const useGameStore = create<GameStore>()(
         if (isImpostor || nonImpostorCount <= 1) {
           set({ eliminatedIndices: newEliminated, impostorState: 'result' });
         } else {
-          set({ eliminatedIndices: newEliminated, impostorState: 'word_wait' });
+          set({ eliminatedIndices: newEliminated, impostorState: 'word_wait', lastEliminatedIndex: index });
         }
       },
 
@@ -214,6 +217,7 @@ export const useGameStore = create<GameStore>()(
           impostorState: 'revealing' as ImpostorState,
           revealIndex: 0,
           eliminatedIndices: [],
+          lastEliminatedIndex: null,
           teams: state.gameMode === 'charades'
             ? initialTeams.map((t) => ({
                 ...t,

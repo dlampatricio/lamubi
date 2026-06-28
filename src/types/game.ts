@@ -14,6 +14,7 @@ export interface GameStore {
   revealIndex: number;
   impostorIndex: number | null;
   eliminatedIndices: number[];
+  lastEliminatedIndex: number | null;
   startImpostorGame: (movies: Movie[]) => void;
   nextReveal: () => void;
   startDebate: () => void;
