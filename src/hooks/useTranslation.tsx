@@ -46,8 +46,6 @@ const en: Translations = {
   nonImpostorsWin: 'The players win!',
   theImpostorWas: 'The impostor was',
   theImpostorsWere: 'The impostors were',
-  survivingImpostors: 'Surviving',
-  caughtImpostors: 'Caught',
   backToLobby: 'Back to Lobby',
   playersReady: '{count} player(s) ready',
   nameAllPlayers: 'Name all players to begin',
@@ -93,10 +91,8 @@ const en: Translations = {
 
   impHowToPlayStep1:
     'Non-impostor players see the movie card with title, year, rating, synopsis, director, and genres.',
-  impHowToPlayStep2:
-    'One player is the IMPOSTOR and does not see the movie.',
-  impHowToPlayStep2_plural:
-    '{count} players are the IMPOSTORS and do not see the movie.',
+  impHowToPlayStep2: 'One player is the IMPOSTOR and does not see the movie.',
+  impHowToPlayStep2_plural: '{count} players are the IMPOSTORS and do not see the movie.',
   impHowToPlayStep3:
     'Players take turns saying a word related to the movie. The impostor must blend in.',
   impHowToPlayStep3_plural:
@@ -169,8 +165,6 @@ const es: Translations = {
   nonImpostorsWin: '¡Los jugadores ganan!',
   theImpostorWas: 'El impostor era',
   theImpostorsWere: 'Los impostores eran',
-  survivingImpostors: 'Sobrevivientes',
-  caughtImpostors: 'Atrapados',
   backToLobby: 'Volver a la Sala',
   playersReady: '{count} jugador(es) listo(s)',
   nameAllPlayers: 'Nombra todos los jugadores para empezar',
@@ -216,10 +210,8 @@ const es: Translations = {
 
   impHowToPlayStep1:
     'Los jugadores que no son impostores ven la tarjeta con título, año, puntuación, sinopsis, director y géneros.',
-  impHowToPlayStep2:
-    'Un jugador es el IMPOSTOR y no ve la película.',
-  impHowToPlayStep2_plural:
-    '{count} jugadores son los IMPOSTORES y no ven la película.',
+  impHowToPlayStep2: 'Un jugador es el IMPOSTOR y no ve la película.',
+  impHowToPlayStep2_plural: '{count} jugadores son los IMPOSTORES y no ven la película.',
   impHowToPlayStep3:
     'Los jugadores se turnan diciendo una palabra relacionada con la película. El impostor debe fingir.',
   impHowToPlayStep3_plural:

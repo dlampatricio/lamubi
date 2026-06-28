@@ -110,7 +110,9 @@ export default function ImpostorPage() {
                 {isImpostorReveal ? (
                   <div className="text-center py-12">
                     <p className="text-4xl md:text-5xl font-black text-red-500 uppercase tracking-tighter mb-4">
-                      {impostorIndices.length > 1 ? t('revealingAImpostor') : t('revealingImpostor')}
+                      {impostorIndices.length > 1
+                        ? t('revealingAImpostor')
+                        : t('revealingImpostor')}
                     </p>
                     <p className="text-sm text-text-secondary font-medium">
                       {t('revealingImpostorHint')}
@@ -164,11 +166,13 @@ export default function ImpostorPage() {
       {impostorState === 'word_wait' && (
         <div className="flex-1 flex flex-col items-center justify-center max-w-xs mx-auto w-full text-center">
           {lastEliminatedIndex !== null && (
-            <p className={`text-xs font-bold uppercase tracking-wider mb-6 px-4 py-3 rounded-2xl border ${
-              impostorIndices.includes(lastEliminatedIndex)
-                ? 'text-red-500 bg-red-500/10 border-red-500/30'
-                : 'text-text-muted bg-surface-secondary border-border'
-            }`}>
+            <p
+              className={`text-xs font-bold uppercase tracking-wider mb-6 px-4 py-3 rounded-2xl border ${
+                impostorIndices.includes(lastEliminatedIndex)
+                  ? 'text-red-500 bg-red-500/10 border-red-500/30'
+                  : 'text-text-muted bg-surface-secondary border-border'
+              }`}
+            >
               {impostorIndices.includes(lastEliminatedIndex)
                 ? t('eliminatedImpostor', { name: players[lastEliminatedIndex]?.name })
                 : impostorIndices.length > 1
@@ -271,15 +275,14 @@ export default function ImpostorPage() {
         <div className="flex-1 flex flex-col items-center justify-center max-w-lg mx-auto w-full">
           {(() => {
             const allEliminated = impostorIndices.every((i) => eliminatedIndices.includes(i));
-            const survivingImpostors = impostorIndices.filter((i) => !eliminatedIndices.includes(i));
-            const caughtImpostors = impostorIndices.filter((i) => eliminatedIndices.includes(i));
             return allEliminated ? (
               <div className="text-center mb-8">
                 <p className="text-3xl md:text-4xl font-black text-green-500 uppercase tracking-tighter mb-2">
                   {t('nonImpostorsWin')}
                 </p>
                 <p className="text-xs font-medium text-text-secondary">
-                  {impostorIndices.length === 1 ? t('theImpostorWas') : t('theImpostorsWere')}: {impostorIndices.map((i) => players[i]?.name).join(', ')}
+                  {impostorIndices.length === 1 ? t('theImpostorWas') : t('theImpostorsWere')}:{' '}
+                  {impostorIndices.map((i) => players[i]?.name).join(', ')}
                 </p>
               </div>
             ) : (
@@ -287,16 +290,10 @@ export default function ImpostorPage() {
                 <p className="text-3xl md:text-4xl font-black text-red-500 uppercase tracking-tighter mb-2">
                   {impostorIndices.length === 1 ? t('impostorWins') : t('impostorsWin')}
                 </p>
-                {survivingImpostors.length > 0 && (
-                  <p className="text-xs font-medium text-green-500 mb-1">
-                    {t('survivingImpostors')}: {survivingImpostors.map((i) => players[i]?.name).join(', ')}
-                  </p>
-                )}
-                {caughtImpostors.length > 0 && (
-                  <p className="text-xs font-medium text-text-muted">
-                    {t('caughtImpostors')}: {caughtImpostors.map((i) => players[i]?.name).join(', ')}
-                  </p>
-                )}
+                <p className="text-xs font-medium text-text-secondary">
+                  {impostorIndices.length === 1 ? t('theImpostorWas') : t('theImpostorsWere')}:{' '}
+                  {impostorIndices.map((i) => players[i]?.name).join(', ')}
+                </p>
               </div>
             );
           })()}
