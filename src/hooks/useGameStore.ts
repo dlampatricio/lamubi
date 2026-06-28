@@ -131,6 +131,9 @@ export const useGameStore = create<GameStore>()(
       stopDebate: () =>
         set({ impostorState: 'voting' }),
 
+      skipElimination: () =>
+        set({ impostorState: 'word_wait' }),
+
       eliminatePlayer: (index) => {
         const state = get();
         const newEliminated = [...state.eliminatedIndices, index];

@@ -24,6 +24,7 @@ export default function ImpostorPage() {
     startDebate,
     stopDebate,
     eliminatePlayer,
+    skipElimination,
     resetGame,
   } = useGameStore();
 
@@ -241,6 +242,13 @@ export default function ImpostorPage() {
               );
             })}
           </div>
+
+          <button
+            onClick={skipElimination}
+            className="mt-6 w-full py-4 px-6 rounded-2xl font-bold text-base uppercase tracking-wider text-text-secondary border-2 border-border hover:bg-surface-secondary hover:border-text-muted transition-all active:scale-[0.98]"
+          >
+            {t('noEliminate')}
+          </button>
         </div>
       )}
 

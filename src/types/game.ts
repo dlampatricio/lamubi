@@ -19,6 +19,7 @@ export interface GameStore {
   startDebate: () => void;
   stopDebate: () => void;
   eliminatePlayer: (index: number) => void;
+  skipElimination: () => void;
   current_team_index: number;
   timer: number;
   initial_timer: number;
