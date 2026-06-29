@@ -302,7 +302,7 @@ export default function ImpostorPage() {
             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] text-center mb-4">
               {t('theMovieWas')}
             </p>
-            <MovieCard movie={current_movie} />
+            <MovieCard movie={current_movie} showHint />
           </div>
 
           <button

@@ -36,7 +36,7 @@ export default function ResultPage() {
           <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-4 text-center">
             {t('theMovieWas')}
           </p>
-          <MovieCard />
+          <MovieCard showHint />
         </div>
 
         <div className="flex-1 w-full max-w-xs mx-auto md:mx-0 flex flex-col pt-0 md:pt-8">
