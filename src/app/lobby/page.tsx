@@ -73,7 +73,7 @@ export default function LobbyPage() {
   };
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col p-6 pt-16 md:p-10 animate-fade-in">
+    <div className="min-h-dvh bg-surface flex flex-col p-6 pt-16 md:p-10 animate-fade-in relative">
       {/* HEADER */}
       <div className="w-full max-w-5xl mx-auto pb-6 md:pb-8 border-b border-border mb-8 md:mb-10 flex items-start justify-between">
         <div>
@@ -259,6 +259,18 @@ export default function LobbyPage() {
           </button>
         </div>
       </div>
+
+      <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-text-muted font-bold uppercase tracking-widest">
+        Design &amp; Dev by{' '}
+        <a
+          href="https://dlampatricio.github.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-text-primary transition-colors"
+        >
+          David Lam
+        </a>
+      </p>
     </div>
   );
 }
