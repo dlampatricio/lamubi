@@ -21,8 +21,8 @@ export default function ResultPage() {
   const nextPlayer = nextTeamData?.players[nextPlayerIndex];
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col items-center justify-center p-6 md:p-12 pt-16 md:pt-12 animate-fade-in">
-      <div className="w-full max-w-4xl border-b border-border pb-6 mb-12 text-center">
+    <div className="min-h-dvh bg-surface flex flex-col items-center justify-center p-6 animate-fade-in">
+      <div className="w-full max-w-4xl border-b border-border pb-4 mb-4 text-center">
         <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-1">
           {t('roundSummary')}
         </p>
@@ -31,7 +31,7 @@ export default function ResultPage() {
         </h1>
       </div>
 
-      <div className="w-full max-w-4xl flex flex-col md:flex-row items-stretch justify-center gap-12 md:gap-24">
+      <div className="w-full max-w-4xl flex flex-col md:flex-row items-stretch justify-center gap-8">
         <div className="w-full md:max-w-75 mx-auto md:mx-0">
           <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-4 text-center">
             {t('theMovieWas')}
