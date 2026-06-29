@@ -93,7 +93,7 @@ export default function ImpostorPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col p-6 md:p-10 animate-fade-in">
+    <div className="min-h-dvh bg-surface flex flex-col p-6 pt-4 animate-fade-in">
       {/* REVEALING PHASE */}
       {impostorState === 'revealing' && (
         <div className="flex-1 flex items-center justify-center">
@@ -103,7 +103,7 @@ export default function ImpostorPage() {
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.3em] mb-4 text-center">
                   {t('revealingTitle')}
                 </p>
-                <p className="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-tighter mb-6 text-center">
+                <p className="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-tighter mb-4 text-center">
                   {currentPlayer?.name}
                 </p>
 
@@ -276,7 +276,7 @@ export default function ImpostorPage() {
           {(() => {
             const allEliminated = impostorIndices.every((i) => eliminatedIndices.includes(i));
             return allEliminated ? (
-              <div className="text-center mb-8">
+              <div className="text-center mb-4">
                 <p className="text-3xl md:text-4xl font-black text-green-500 uppercase tracking-tighter mb-2">
                   {t('nonImpostorsWin')}
                 </p>
@@ -286,7 +286,7 @@ export default function ImpostorPage() {
                 </p>
               </div>
             ) : (
-              <div className="text-center mb-8">
+              <div className="text-center mb-4">
                 <p className="text-3xl md:text-4xl font-black text-red-500 uppercase tracking-tighter mb-2">
                   {impostorIndices.length === 1 ? t('impostorWins') : t('impostorsWin')}
                 </p>
@@ -298,7 +298,7 @@ export default function ImpostorPage() {
             );
           })()}
 
-          <div className="w-full max-w-xs mx-auto border-t border-border pt-8">
+          <div className="w-full max-w-xs mx-auto border-t border-border pt-4">
             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.4em] text-center mb-4">
               {t('theMovieWas')}
             </p>
@@ -310,7 +310,7 @@ export default function ImpostorPage() {
               resetGame();
               router.push('/lobby');
             }}
-            className="mt-10 w-full max-w-xs py-5 rounded-2xl font-black text-xl uppercase tracking-tight bg-text-primary text-surface hover:opacity-90 active:scale-95 shadow-xl transition-all"
+            className="mt-8 w-full max-w-xs py-5 rounded-2xl font-black text-xl uppercase tracking-tight bg-text-primary text-surface hover:opacity-90 active:scale-95 shadow-xl transition-all"
           >
             {t('backToLobby')}
           </button>

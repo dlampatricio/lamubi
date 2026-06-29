@@ -20,7 +20,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
 
   if (!movie) {
     return (
-      <div className="w-full max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
+      <div className="w-full max-w-[260px] sm:max-w-xs mx-auto aspect-2/3 rounded-2xl flex flex-col items-center justify-center gap-4 border border-border bg-surface-secondary">
         <span className="inline-block w-6 h-6 border-2 border-text-muted border-t-transparent rounded-full animate-spin" />
         <span className="text-text-muted font-bold text-[10px] animate-pulse uppercase tracking-widest">
           {t('loading')}
@@ -31,16 +31,16 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
 
   return (
     <div
-      className="w-full max-w-xs mx-auto [perspective:1000px] cursor-pointer group relative"
+      className="w-full max-w-[260px] sm:max-w-xs mx-auto perspective-[1000px] cursor-pointer group relative"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       {/* Invisible sizing element: gives the container explicit height */}
       <div className="invisible" aria-hidden="true">
         <div className="bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
           <div className="relative aspect-2/3 bg-surface-secondary" />
-          <div className="p-5">
-            <div className="text-xl font-black leading-tight">W</div>
-            <div className="mt-2 text-[11px]">R</div>
+          <div className="p-3 sm:p-5">
+            <div className="text-sm sm:text-xl font-black leading-tight">W</div>
+            <div className="mt-1 sm:mt-2 text-[10px] sm:text-[11px]">R</div>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
         initial={false}
       >
         {/* FRONT FACE */}
-        <div className="absolute inset-0 [backface-visibility:hidden]">
+        <div className="absolute inset-0 backface-hidden">
           <div className="w-full h-full bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
             <div className="relative flex-1 bg-surface-secondary">
               <Image
@@ -71,12 +71,12 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 </div>
               )}
             </div>
-            <div className="p-5 text-left bg-surface shrink-0">
-              <h2 className="text-xl font-black leading-tight text-text-primary uppercase">
+            <div className="p-3 sm:p-5 text-left bg-surface shrink-0">
+              <h2 className="text-sm sm:text-xl font-black leading-tight text-text-primary uppercase">
                 {movie.title}{' '}
                 {!!movie.year && <span className="text-text-muted ml-1">({movie.year})</span>}
               </h2>
-              <div className="mt-2 text-[11px] font-bold text-text-secondary uppercase">
+              <div className="mt-1 sm:mt-2 text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase">
                 {t('rating')}: {movie.rating} / 10
               </div>
             </div>
@@ -84,8 +84,8 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
         </div>
 
         {/* BACK FACE */}
-        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden">
-          <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-4 text-center">
+        <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)] dark:bg-surface-tertiary bg-gray-900 rounded-2xl p-4 sm:p-6 flex flex-col border dark:border-border-strong border-gray-800 shadow-2xl overflow-hidden">
+          <p className="text-[9px] font-black dark:text-text-muted text-gray-500 uppercase tracking-[0.3em] mb-2 sm:mb-4 text-center">
             {t('synopsis')}
           </p>
 
@@ -95,7 +95,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
             </p>
           </div>
 
-          <div className="mt-6 pt-6 border-t dark:border-border-strong border-gray-800 space-y-3">
+          <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t dark:border-border-strong border-gray-800 space-y-3">
             <div className="flex justify-between items-end">
               <div>
                 <span className="block text-[8px] font-bold dark:text-text-muted text-gray-500 uppercase tracking-widest">

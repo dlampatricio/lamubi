@@ -64,7 +64,7 @@ export default function HandoffPage() {
 
   return (
     <div className="min-h-dvh bg-surface flex items-center justify-center p-6 overflow-y-auto animate-fade-in">
-      <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+      <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center md:gap-12">
         <div className="w-full max-w-xs md:flex-1 flex flex-col justify-center">
           <div className="border-l-4 border-text-primary pl-6 py-2 mb-3 md:mb-4">
             <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] mb-1">
