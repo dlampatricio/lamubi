@@ -54,7 +54,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
       >
         {/* FRONT FACE */}
         <div className="absolute inset-0 backface-hidden">
-          <div className="w-full h-full bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
+          <div className="relative w-full h-full bg-surface border border-border shadow-sm flex flex-col rounded-2xl overflow-hidden">
             <div className="relative flex-1 bg-surface-secondary">
               <Image
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -64,7 +64,7 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 sizes="(max-width: 768px) 100vw, 384px"
               />
               {showHint && !isFlipped && (
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end justify-center pb-6">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end justify-center pb-6 max-sm:hidden">
                   <span className="text-white/0 group-hover:text-white/70 text-[9px] font-black uppercase tracking-widest transition-all drop-shadow-lg">
                     {t('tapToFlip')}
                   </span>
@@ -80,6 +80,12 @@ const MovieCard = ({ movie: propMovie, showHint }: MovieCardProps) => {
                 {t('rating')}: {movie.rating} / 10
               </div>
             </div>
+            {showHint && (
+              <div
+                className="absolute bottom-0 right-0 w-8 h-8 sm:hidden bg-border/60"
+                style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }}
+              />
+            )}
           </div>
         </div>
 
