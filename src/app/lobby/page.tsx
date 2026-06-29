@@ -169,7 +169,7 @@ export default function LobbyPage() {
                 </p>
                 <div className="grid grid-cols-3 gap-2 md:gap-3">
                   {Array.from(
-                    { length: Math.max(0, Math.floor((players.length - 1) / 2)) },
+                    { length: Math.max(1, Math.floor((players.length - 1) / 2)) },
                     (_, i) => i + 1
                   ).map((count) => (
                     <button
