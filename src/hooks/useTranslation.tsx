@@ -245,7 +245,19 @@ const es: Translations = {
 };
 
 const all = { en, es } as const;
+const BUILT_IN_LANGS = ['en', 'es'];
 type Lang = keyof typeof all;
+
+function syncTranslateAttribute(lang: Lang) {
+  const doc = document.documentElement;
+  if ((BUILT_IN_LANGS as readonly string[]).includes(lang)) {
+    doc.setAttribute('translate', 'no');
+    doc.classList.add('notranslate');
+  } else {
+    doc.removeAttribute('translate');
+    doc.classList.remove('notranslate');
+  }
+}
 type Key = keyof typeof en;
 
 interface LangContextType {
@@ -270,6 +282,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     if (stored && (stored === 'en' || stored === 'es')) {
       setLangState(stored);
       document.documentElement.lang = stored === 'es' ? 'es' : 'en';
+      syncTranslateAttribute(stored);
     }
   }, []);
 
@@ -277,6 +290,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     setLangState(l);
     localStorage.setItem('lamubi-lang', l);
     document.documentElement.lang = l === 'es' ? 'es' : 'en';
+    syncTranslateAttribute(l);
   };
 
   const t = (key: Key, params?: Record<string, string | number>): string => {
