@@ -50,6 +50,7 @@ export default function ImpostorPage() {
   const currentPlayer = players[revealIndex];
   const activePlayers = players.filter((_, i) => !eliminatedIndices.includes(i));
   const [showRole, setShowRole] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
   const [revealReady, setRevealReady] = useState(false);
   const isLastReveal = revealIndex >= players.length - 1;
 
@@ -60,6 +61,11 @@ export default function ImpostorPage() {
   }, [game_state, current_movie, impostorIndices]);
 
   const handleRevealTap = () => {
+    if (showIntro) {
+      setShowIntro(false);
+      return;
+    }
+
     if (showRole) {
       if (isLastReveal) {
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -98,7 +104,28 @@ export default function ImpostorPage() {
       {impostorState === 'revealing' && (
         <div className="flex-1 flex items-center justify-center">
           <div className="w-full max-w-xs mx-auto">
-            {showRole ? (
+            {showIntro ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-text-muted mb-6"
+                >
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                  <line x1="12" y1="18" x2="12" y2="18" />
+                </svg>
+                <p className="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-tight">
+                  {currentPlayer?.name}
+                </p>
+              </div>
+            ) : showRole ? (
               <>
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.3em] mb-4 text-center">
                   {t('revealingTitle')}
@@ -156,7 +183,7 @@ export default function ImpostorPage() {
               onClick={handleRevealTap}
               className="mt-8 w-full py-5 rounded-2xl font-black text-xl uppercase tracking-tight bg-text-primary text-surface hover:opacity-90 active:scale-95 shadow-xl transition-all"
             >
-              {showRole ? t('tapToContinue') : t('tapToReveal')}
+              {showIntro ? t('tapToReveal') : showRole ? t('tapToContinue') : t('tapToReveal')}
             </button>
           </div>
         </div>
